@@ -1,8 +1,11 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.hardware.HardwareMap;
+
 public class Camera {
     //Class detects April Tags, finds robot's relative position, and determines which hive to shoot at. (team/tilt direction)
 
+    HardwareMap hardwareMap;
     double getDistance(int aprilTagID) {
         // FUNCTIONALITY:
         // needs to use Limelight camera sensor to get distance from a specific AprilTag

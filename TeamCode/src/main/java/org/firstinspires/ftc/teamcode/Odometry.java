@@ -1,8 +1,11 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.hardware.HardwareMap;
+
 public class Odometry {
     //Class tracks the robot's position, orientation, and velocity.
 
+    HardwareMap hardwareMap;
     double[] getRobotPosition() {
         // FUNCTIONALITY:
         // uses odometry sensor to get the robot's current position
