@@ -1,8 +1,11 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.hardware.HardwareMap;
+
 public class TurretVelocityRealignment {
     //Class determines the target angle to turn the turret and turns the turret.
 
+    HardwareMap hardwareMap;
     double[] getVelocityDirectionalOffset() {
         // FUNCTIONALITY:
         // gets the robots velocity vector

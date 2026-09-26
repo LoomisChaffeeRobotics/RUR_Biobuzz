@@ -1,7 +1,11 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.hardware.HardwareMap;
+
 public class Intake {
     //Runs the Intake.
+
+    HardwareMap hardwareMap;
 
     boolean isFull(int targetArtifacts) {
         // FUNCTIONALITY:
@@ -15,7 +19,7 @@ public class Intake {
 
     boolean runIntake() {
         // FUNCTIONALITY:
-        // needs to know if there are N many artifacts in the robot
+        // runs the intake
         // returns if it succeeded or if there was an error
 
         // CLASS INTERACTIONS:

@@ -1,8 +1,11 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.hardware.HardwareMap;
+
 public class Launcher {
     //Class calculates the target speed of turret and sets turret to correct power.
 
+    HardwareMap hardwareMap;
     double interpolateLauncherPowerFromTable(int launcherID, double[] distanceList, double[] powerList, double targetDistance) {
         // FUNCTIONALITY:
         // launcherID -> is NECTAR launcher vs. POLLEN launcher
