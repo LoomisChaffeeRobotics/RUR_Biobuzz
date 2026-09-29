@@ -1,12 +1,16 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class Intake {
     //Runs the Intake.
 
-    HardwareMap hardwareMap;
+    DcMotor intakeMotor;
 
+    void init(HardwareMap hardwareMap) {
+        intakeMotor = hardwareMap.get(DcMotor.class, "intake");
+    }
     boolean isFull(int targetArtifacts) {
         // FUNCTIONALITY:
         // needs to know if there are N many artifacts in the robot
@@ -17,10 +21,23 @@ public class Intake {
         return true;
     }
 
-    boolean runIntake() {
+    boolean toggleIntake(boolean condition) {
         // FUNCTIONALITY:
-        // runs the intake
-        // returns if it succeeded or if there was an error
+        // when "condition" is true, run intake if not full ( use isFull() )
+        // when "condition" is false, always turn off the intake
+        // returns true if it succeeded and false if it failed (e.g. was full but tried to run)
+        if (condition && !isFull(4)) {
+            intakeMotor.setPower(1);
+            return true;
+        }
+
+        else if (condition && isFull(4)) {
+            return false;
+        }
+        else if (!condition) {
+            intakeMotor.setPower(0);
+            return true;
+        }
 
         // CLASS INTERACTIONS:
         // N/A
