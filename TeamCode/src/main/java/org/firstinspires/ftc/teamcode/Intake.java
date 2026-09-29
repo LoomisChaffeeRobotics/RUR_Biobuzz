@@ -17,10 +17,11 @@ public class Intake {
         return true;
     }
 
-    boolean runIntake() {
+    boolean toggleIntake(boolean condition) {
         // FUNCTIONALITY:
-        // runs the intake
-        // returns if it succeeded or if there was an error
+        // when "condition" is true, run intake if not full ( use isFull() )
+        // when "condition" is false, always turn off the intake
+        // returns true if it succeeded and false if it failed (e.g. was full but tried to run)
 
         // CLASS INTERACTIONS:
         // N/A
