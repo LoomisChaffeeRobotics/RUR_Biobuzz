@@ -20,6 +20,7 @@ public class Odometry {
         // FUNCTIONALITY:
         // uses odometry sensor to get the robot's current facing angle
         // return theta
+        //^ Is theta in degrees or radians? - Brendan
 
         // CLASS INTERACTIONS:
         // N/A
