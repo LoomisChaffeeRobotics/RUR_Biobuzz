@@ -1,11 +1,21 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 public class Launcher {
     //Class calculates the target speed of turret and sets turret to correct power.
 
     HardwareMap hardwareMap;
+    DcMotorEx pollen_launcher;
+    DcMotorEx nectar_launcher;
+
+    void init(HardwareMap hardwareMap) {
+        pollen_launcher = hardwareMap.get(DcMotorEx.class, "pollen_launcher");
+        nectar_launcher = hardwareMap.get(DcMotorEx.class, "nectar_launcher");
+    }
     double interpolateLauncherPowerFromTable(int launcherID, double[] distanceList, double[] powerList, double targetDistance) {
         // FUNCTIONALITY:
         // launcherID -> is NECTAR launcher vs. POLLEN launcher
@@ -33,10 +43,14 @@ public class Launcher {
         // CLASS INTERACTIONS:
         // N/A
 
-        return true;
+        double launcherVelocity = launcherID == 1 ? pollen_launcher.getVelocity() : nectar_launcher.getVelocity();
+
+        double rpm = launcherVelocity / 6.0;
+
+        return Math.abs(rpm - targetRPM) <= epsilon;
     }
 
-    void powerLauncher(int launcherID, double targetRPM) {
+    void toggleLauncher(int launcherID, double targetRPM, double epsilon, boolean toggle) {
         // FUNCTIONALITY:
         // launcherID -> is NECTAR launcher vs. POLLEN launcher
             // launcherID = 1 -> POLLEN
@@ -46,6 +60,14 @@ public class Launcher {
 
         // CLASS INTERACTIONS:
         // N/A
+
+        if (launcherID == 1) {
+            pollen_launcher.setVelocity(toggle ? targetRPM/6.0 : 0);
+        }
+        else  {
+            nectar_launcher.setVelocity(toggle ? targetRPM/6.0 : 0);
+        }
+
 
 
     }
