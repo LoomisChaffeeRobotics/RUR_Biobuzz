@@ -16,7 +16,10 @@ public class Odometry {
     //The odometry sensor is named "pinpoint".
 
 
-    public void init(HardwareMap hardwareMap, double xStartInches, double yStartInches, double headingStartDegrees) {
+    public void init(HardwareMap hardwareMap, double[] odometryParameters) {
+        double xStartInches = odometryParameters[0];
+        double yStartInches = odometryParameters[1];
+        double headingStartDegrees = odometryParameters[2];
         //xStartIcnehs = The robot's starting position in inches.
         //yStarticnehs = The robot's starting position in inches.
         //headingStartDegeres = The robot's starting orientation in degrees.

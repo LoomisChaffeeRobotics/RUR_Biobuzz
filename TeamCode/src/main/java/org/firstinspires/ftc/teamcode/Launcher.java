@@ -16,7 +16,35 @@ public class Launcher {
         pollen_launcher = hardwareMap.get(DcMotorEx.class, "pollen_launcher");
         nectar_launcher = hardwareMap.get(DcMotorEx.class, "nectar_launcher");
     }
-    double interpolateLauncherPowerFromTable(int launcherID, double[] distanceList, double[] powerList, double targetDistance) {
+
+    double[] getBoundingIndexes(double[] list, double targetValue) {
+
+        double bottom = 0; double top = list.length - 1;
+        double bottomVal = 0; double topVal = 999999;
+
+        for (int i = 0; i < list.length; i++) {
+
+            if (list[i] >= bottomVal && list[i] <= targetValue) {
+
+                bottom = i;
+                bottomVal = list[i];
+
+            }
+
+            if (list[i] <= topVal && list[i] >= targetValue) {
+
+                top = i;
+                topVal = list[i];
+
+            }
+
+        }
+
+        return new double[] {bottom, top};
+
+    }
+    public double interpolateLauncherPowerFromTable(int launcherID, double[] distanceList, double[] powerList, double targetDistance) {
+
         // FUNCTIONALITY:
         // launcherID -> is NECTAR launcher vs. POLLEN launcher
             // launcherID = 1 -> POLLEN
@@ -29,10 +57,15 @@ public class Launcher {
         // CLASS INTERACTIONS:
         // N/A
 
+        double[] powerBounds = getBoundingIndexes(distanceList, targetDistance);
+        // since each power index is directly associted with a distance, we can use distance indexes for power indexes
+
+        double targetPower = targetDistance * ((powerBounds[2] - powerBounds[1])/delta) + powerList[1];
+
         return 0;
     }
 
-    boolean isLauncherPowered(int launcherID, double targetRPM, double epsilon) {
+    public boolean isLauncherPowered(int launcherID, double targetRPM, double epsilon) {
 
         // FUNCTIONALITY:
         // launcherID -> is NECTAR launcher vs. POLLEN launcher
@@ -50,7 +83,7 @@ public class Launcher {
         return Math.abs(rpm - targetRPM) <= epsilon;
     }
 
-    void toggleLauncher(int launcherID, double targetRPM, double epsilon, boolean toggle) {
+    public void toggleLauncher(int launcherID, double targetRPM, double epsilon, boolean toggle) {
         // FUNCTIONALITY:
         // launcherID -> is NECTAR launcher vs. POLLEN launcher
             // launcherID = 1 -> POLLEN
