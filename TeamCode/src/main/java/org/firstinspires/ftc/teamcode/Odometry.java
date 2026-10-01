@@ -1,19 +1,21 @@
 package org.firstinspires.ftc.teamcode;
 import com.qualcomm.hardware.gobilda.GoBildaPinpointDriver;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 
 
-public class Odometry extends OpMode {
+public class Odometry {
     //Class tracks the robot's position, orientation, and velocity.
 
     GoBildaPinpointDriver pinpoint;
     //The odometry sensor is named "pinpoint".
 
     @Override
-    public void init() {
+    public void init(HardwareMap hardwareMap) {
 
         pinpoint = hardwareMap.get(GoBildaPinpointDriver.class, "pinpoint");
         //Configure the odometry sensor as "pinpoint".

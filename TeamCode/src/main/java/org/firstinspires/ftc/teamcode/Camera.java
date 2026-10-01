@@ -17,20 +17,24 @@ public class Camera {
     public Limelight3A limelight;
     Pose3D botpose;
     Position positionrelativetoapriltag;
+
+    Odometry odometry;
     HardwareMap hardwareMap;
     public void init(HardwareMap hardwareMap, Telemetry telemetry) {
         limelight = hardwareMap.get(Limelight3A.class, "limelight");
         limelight.pipelineSwitch(0);   // your AprilTag pipeline index
         limelight.start();
+        odometry = new Odometry();
+        odometry.init(hardwareMap);
     }
 
 
     public double getDistance_from_apriltag() {
         //this code might be totally wrong but I'm just putting it in based on the most straightforward
         // way to do it cause we didn't ahe the odemetry inputed yet so i didn't get it based on that orientation
-        double camera_mounted_angle = ;
-        double camera_height = ;
-        double target_height = ;
+        double camera_mounted_angle = 0;
+        double camera_height = 0;
+        double target_height = 0;
         double angleToGoalDegrees = botpose.getOrientation();
         double angleToGoalRadians = Math.toRadians(angleToGoalDegrees);
         double distance_from_apriltag = (target_height - camera_height) / Math.tan(angleToGoalRadians);
@@ -49,6 +53,7 @@ public class Camera {
 //    }
 
     public double getDiagonalDistanceToAprilTag(int tagId) {
+        double[] robotPosition = odometry.getRobotPosition();
         double[] pos = getPositionOfAprilTag(tagId);
         if (pos == null) return -1; // tag not visible
 
