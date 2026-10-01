@@ -43,7 +43,7 @@ public class Launcher {
         return new double[] {bottom, top};
 
     }
-    public double interpolateLauncherPowerFromTable(int launcherID, double[] distanceList, double[] powerList, double targetDistance) {
+    public double interpolateLauncherPowerFromTable(int launcherID, double[] distanceList, double[] powerList, double targetDistance, double deltaDistance) {
 
         // FUNCTIONALITY:
         // launcherID -> is NECTAR launcher vs. POLLEN launcher
@@ -51,18 +51,21 @@ public class Launcher {
             // launcherID = 2 -> NECTAR
         // distanceList & powerList -> look up tables for distances and respective launcher motor powers
             // linearly interpolate targetDistance using these tables to find the targetPower
-            // targetPower = (y_2 - y_1)(targetDistance) + y_0
+            // targetPower = ((y_2 - y_1)/delta)(targetDistance - x_1) + y_1
         // return targetPower
 
         // CLASS INTERACTIONS:
         // N/A
 
         double[] powerBounds = getBoundingIndexes(distanceList, targetDistance);
-        // since each power index is directly associted with a distance, we can use distance indexes for power indexes
+        // since each power index is directly associated with a distance, we can use distance indexes for power indexes
 
-        double targetPower = targetDistance * ((powerBounds[2] - powerBounds[1])/delta) + powerList[1];
+        double targetRPM =
+                ((targetDistance - distanceList[1]) * // this is just the change in x from point A to point B
+                        ((powerBounds[2] - powerBounds[1])/deltaDistance))  // this is the slope of the line
+                        + powerList[1]; // this is the y intercept
 
-        return 0;
+        return targetRPM;
     }
 
     public boolean isLauncherPowered(int launcherID, double targetRPM, double epsilon) {
@@ -95,10 +98,10 @@ public class Launcher {
         // N/A
 
         if (launcherID == 1) {
-            pollen_launcher.setVelocity(toggle ? targetRPM/6.0 : 0);
+            pollen_launcher.setVelocity(toggle ? targetRPM*6.0 : 0);
         }
         else  {
-            nectar_launcher.setVelocity(toggle ? targetRPM/6.0 : 0);
+            nectar_launcher.setVelocity(toggle ? targetRPM*6.0 : 0);
         }
 
 
