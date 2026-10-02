@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode;
 import com.qualcomm.hardware.gobilda.GoBildaPinpointDriver;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -28,13 +27,13 @@ public class Odometry {
 
         //Tracking Point at Center of Robot.
         double xOffset = 0;
-        double yOffset = 0;
+        double yOffset = -2.5;
         //xOffset = Sensor tracking forward/backword movement's distance in inches to the left from the center.
         //yOffset = Sensor tracking left/right movement's distance in inches to the front from the center.
 
         pinpoint.setEncoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD);
         pinpoint.setOffsets(xOffset, yOffset, DistanceUnit.INCH);
-        pinpoint.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.FORWARD, GoBildaPinpointDriver.EncoderDirection.FORWARD);
+        pinpoint.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.REVERSED, GoBildaPinpointDriver.EncoderDirection.FORWARD);
         //Setting Basic Information for Sensor.
 
         pinpoint.resetPosAndIMU();
@@ -49,7 +48,6 @@ public class Odometry {
         //Setting Robot's Starting Position and Orientation.
 
     }
-
 
     public double[] getRobotPosition() {
         //Returns in Inches

@@ -12,7 +12,7 @@ public class Launcher {
     DcMotorEx pollen_launcher;
     DcMotorEx nectar_launcher;
 
-    void init(HardwareMap hardwareMap) {
+    public void init(HardwareMap hardwareMap) {
         pollen_launcher = hardwareMap.get(DcMotorEx.class, "pollen_launcher");
         nectar_launcher = hardwareMap.get(DcMotorEx.class, "nectar_launcher");
     }
@@ -50,9 +50,9 @@ public class Launcher {
             // launcherID = 1 -> POLLEN
             // launcherID = 2 -> NECTAR
         // distanceList & powerList -> look up tables for distances and respective launcher motor powers
-            // linearly interpolate targetDistance using these tables to find the targetPower
-            // targetPower = ((y_2 - y_1)/delta)(targetDistance - x_1) + y_1
-        // return targetPower
+            // linearly interpolate targetDistance using these tables to find the targetRPM
+            // targetRPM = ((y_2 - y_1)/delta)(targetDistance - x_1) + y_1
+        // return targetRPM
 
         // CLASS INTERACTIONS:
         // N/A
