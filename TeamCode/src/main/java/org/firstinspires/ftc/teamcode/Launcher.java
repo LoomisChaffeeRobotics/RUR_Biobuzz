@@ -12,6 +12,13 @@ public class Launcher {
     DcMotorEx pollen_launcher;
     DcMotorEx nectar_launcher;
 
+    public double[] pollen_distance_list = {};
+    public double[] nectar_distance_list = {};
+    public double[] pollen_power_list = {};
+    public double[] nectar_power_list = {};
+
+    public double globalDelta = 0.1;
+
     public void init(HardwareMap hardwareMap) {
         pollen_launcher = hardwareMap.get(DcMotorEx.class, "pollen_launcher");
         nectar_launcher = hardwareMap.get(DcMotorEx.class, "nectar_launcher");

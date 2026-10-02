@@ -10,6 +10,12 @@ public class Main extends OpMode {
     //Main OpMode run in TeleOp.
 
     Intake intake;
+    Launcher launcherClass;
+    Camera camera;
+
+    double distanceToAprilTag = 0;
+    int targetAprilTagID = 1;
+    double[] odometryConstants = {0, 0, 0};
 
     @Override
     public void init() {
@@ -21,14 +27,29 @@ public class Main extends OpMode {
 
         intake = new Intake();
         intake.init(hardwareMap);
+
+        launcherClass = new Launcher();
+        launcherClass.init(hardwareMap);
+
+        camera = new Camera();
+        camera.init(hardwareMap, odometryConstants);
     }
 
     @Override
     public void loop() {
+        //intake handling
         if (gamepad1.a) {
             intake.toggleIntake(true);
         } else {
             intake.toggleIntake(false);
+        }
+
+
+
+        //launcher handling
+        // pollen launcher
+        if (gamepad2.a) {
+            launcherClass.interpolateLauncherPowerFromTable(1, launcherClass.pollen_distance_list, launcherClass.pollen_power_list)
         }
     }
 }
