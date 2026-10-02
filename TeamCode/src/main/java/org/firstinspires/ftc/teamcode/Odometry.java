@@ -50,7 +50,6 @@ public class Odometry {
 
     }
 
-
     public double[] getRobotPosition() {
         //Returns in Inches
 
