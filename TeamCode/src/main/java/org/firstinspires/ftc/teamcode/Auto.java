@@ -1,7 +1,11 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.pedropathing.api.PoseFactory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.pedropathing.follower.Follower;
+import org.firstinspires.ftc.teamcode.pedro.Constants;
+
 
 // PedroPathing: Lightweight, easy to use, designed specifically for FTC, simple, quick setup,
 //      supports basic path following, localization, and simple configuration.
@@ -11,12 +15,18 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 @Autonomous
 public class Auto extends OpMode {
     //Main OpMode run in Autonomous.
+    public Follower follower;
+    public PoseFactory poseFactory = PoseFactory.degrees();
 
     @Override
     public void init() {
+        follower = Constants.create(hardwareMap);
 
     }
+    @Override
+    public void start() {
 
+    }
     @Override
     public void loop() {
 
