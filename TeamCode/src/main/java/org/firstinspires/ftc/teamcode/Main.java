@@ -10,12 +10,17 @@ public class Main extends OpMode {
     //Main OpMode run in TeleOp.
 
     Intake intake;
+    Drive drive;
     Launcher launcherClass;
     Camera camera;
+    Odometry odometry;
 
+    double[] odometryConstants = {0, 0, 0};
     double distanceToAprilTag = 0;
     int targetAprilTagID = 1;
-    double[] odometryConstants = {0, 0, 0};
+
+    boolean a2Pressed = false;
+    boolean b2Pressed = false;
 
     @Override
     public void init() {
@@ -33,23 +38,51 @@ public class Main extends OpMode {
 
         camera = new Camera();
         camera.init(hardwareMap, odometryConstants);
+
+        odometry = new Odometry();
+        odometry.init(hardwareMap, odometryConstants);
     }
 
     @Override
     public void loop() {
-        //intake handling
         if (gamepad1.a) {
             intake.toggleIntake(true);
         } else {
             intake.toggleIntake(false);
         }
 
+        drive.driveUpdateFromGamepadInput((double) gamepad1.left_stick_x, (double) gamepad1.left_stick_y, (double) gamepad1.right_stick_y, (float) odometry.getRobotAngle());
 
 
         //launcher handling
         // pollen launcher
-        if (gamepad2.a) {
-            launcherClass.interpolateLauncherPowerFromTable(1, launcherClass.pollen_distance_list, launcherClass.pollen_power_list)
+
+        launcherClass.toggleLauncher(1,
+                launcherClass.interpolateLauncherPowerFromTable(1,
+                        launcherClass.pollen_distance_list,
+                        launcherClass.pollen_power_list,
+                        camera.getDistanceFromAprilTag(),
+                        launcherClass.globalDelta),
+                launcherClass.globalEpsilon,
+                a2Pressed);
+
+        //nectar launcher
+        launcherClass.toggleLauncher(2,
+                launcherClass.interpolateLauncherPowerFromTable(2,
+                        launcherClass.pollen_distance_list,
+                        launcherClass.pollen_power_list,
+                        camera.getDistanceFromAprilTag(),
+                        launcherClass.globalDelta),
+                launcherClass.globalEpsilon,
+                b2Pressed);
+
+        if (gamepad2.aWasPressed()) {
+            a2Pressed = !a2Pressed;
         }
+        if (gamepad2.bWasPressed()) {
+            b2Pressed = !b2Pressed;
+        }
+
+
     }
 }

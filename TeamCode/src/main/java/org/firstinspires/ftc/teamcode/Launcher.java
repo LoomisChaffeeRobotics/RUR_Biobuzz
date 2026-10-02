@@ -18,6 +18,7 @@ public class Launcher {
     public double[] nectar_power_list = {};
 
     public double globalDelta = 0.1;
+    public double globalEpsilon = 50;
 
     public void init(HardwareMap hardwareMap) {
         pollen_launcher = hardwareMap.get(DcMotorEx.class, "pollen_launcher");
