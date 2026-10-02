@@ -10,6 +10,7 @@ public class Main extends OpMode {
     //Main OpMode run in TeleOp.
 
     Intake intake;
+    Drive drive;
 
     @Override
     public void init() {
@@ -31,4 +32,14 @@ public class Main extends OpMode {
             intake.toggleIntake(false);
         }
     }
+
+    public void loop(){
+        if (gamepad1.x) {
+            drive.driveUpdateFromGamepadInput( double x, double y, double rx, float yaw);
+        } else {
+            drive.driveUpdateFromGamepadInput(false);
+        }
+        }
+    }
 }
+

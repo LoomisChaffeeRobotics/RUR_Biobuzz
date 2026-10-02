@@ -20,24 +20,22 @@ import java.util.Map;
 public class Camera {
     //Class detects April Tags, finds robot's relative position, and determines which hive to shoot at. (team/tilt direction)
     public Limelight3A limelight;
-    Pose3D botpose;
-    Position positionrelativetoapriltag;
     Odometry odometry;
     HardwareMap hardwareMap;
 
-    public void init(HardwareMap hardwareMap, Telemetry telemetry) {
+    public void init(HardwareMap hardwareMap, Telemetry telemetry, double[] odometryParameters) {
         limelight = hardwareMap.get(Limelight3A.class, "limelight");
         limelight.pipelineSwitch(0);
         limelight.start();
         odometry = new Odometry();
-        odometry.init(hardwareMap);
+        odometry.init(hardwareMap, odometryParameters);
     }
 
-    public double getDistance_from_apriltag() {
+    public double getDistanceFromAprilTag() {
         double camera_mounted_angle = 0;
         double camera_height = 0;
         double target_height = 0;
-        double angleToGoalDegrees = botpose.getOrientation().getYaw();
+        double angleToGoalDegrees = odometry.getRobotAngle();
         double angleToGoalRadians = Math.toRadians(angleToGoalDegrees);
         double distance_from_apriltag = (target_height - camera_height) / Math.tan(angleToGoalRadians);
 
@@ -50,6 +48,7 @@ public class Camera {
 
         for (LLResultTypes.FiducialResult fr : result.getFiducialResults()) {
             if (fr.getFiducialId() == aprilTagID) {
+                // is it relative to robot or for the entire space??????
                 Position p = fr.getTargetPoseCameraSpace().getPosition().toUnit(DistanceUnit.METER);
                 return new double[]{p.x, p.y, p.z};
             }
