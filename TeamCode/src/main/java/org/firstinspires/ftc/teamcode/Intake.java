@@ -8,10 +8,10 @@ public class Intake {
 
     DcMotor intakeMotor;
 
-    void init(HardwareMap hardwareMap) {
+    public void init(HardwareMap hardwareMap) {
         intakeMotor = hardwareMap.get(DcMotor.class, "intake");
     }
-    boolean isFull(int targetArtifacts) {
+    public boolean isFull(int targetArtifacts) {
         // FUNCTIONALITY:
         // needs to know if there are N many artifacts in the robot
         // returns whether is full
@@ -21,7 +21,7 @@ public class Intake {
         return true;
     }
 
-    boolean toggleIntake(boolean condition) {
+    public boolean toggleIntake(boolean condition) {
         // FUNCTIONALITY:
         // when "condition" is true, run intake if not full ( use isFull() )
         // when "condition" is false, always turn off the intake
