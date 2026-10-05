@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 @TeleOp
@@ -84,5 +85,16 @@ public class Main extends OpMode {
         }
 
 
+    }
+    
+    @Override
+    public void loop() {
+        double x = gamepad1.left_stick_x;   // x position
+        double y = -gamepad1.left_stick_y;   // y position (flipped: gamepad up = negative)
+        double rx = gamepad1.right_stick_x;  // rotation
+
+        float yaw = (float) odometry.getRobotAngle(); // radians
+
+        drive.driveUpdateFromGamepadInput(x, y, rx, yaw);
     }
 }
