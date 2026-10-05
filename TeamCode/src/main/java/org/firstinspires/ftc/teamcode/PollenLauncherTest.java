@@ -19,6 +19,8 @@ public class PollenLauncherTest extends OpMode {
     boolean a2Pressed = false;
     boolean b2Pressed = false;
 
+    double[] result;
+
     @Override
     public void init() {
         // in init(),
@@ -51,9 +53,21 @@ public class PollenLauncherTest extends OpMode {
                 launcherClass.globalEpsilon,
                 a2Pressed);
 
+        result = launcherClass.interpolateLauncherPowerFromTable(1,
+                launcherClass.pollen_distance_list,
+                launcherClass.pollen_power_list,
+                camera.getDistanceFromAprilTag(),
+                launcherClass.globalDelta);
+
         if (gamepad2.aWasPressed()) {
             a2Pressed = !a2Pressed;
         }
+
+        telemetry.addData("targetVelocity", result[0]);
+
+//        telemetry.addData("velocityError", result[0]);
+        telemetry.addData("power_1", result[1]);
+        telemetry.addData("power_2", result[2]);
 
 
     }

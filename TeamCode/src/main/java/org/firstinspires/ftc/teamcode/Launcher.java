@@ -25,9 +25,9 @@ public class Launcher {
         nectar_launcher = hardwareMap.get(DcMotorEx.class, "nectar_launcher");
     }
 
-    double[] getBoundingIndexes(double[] list, double targetValue) {
+    int[] getBoundingIndexes(double[] list, double targetValue) {
 
-        double bottom = 0; double top = list.length - 1;
+        int bottom = 0; int top = list.length - 1;
         double bottomVal = 0; double topVal = 999999;
 
         for (int i = 0; i < list.length; i++) {
@@ -48,10 +48,10 @@ public class Launcher {
 
         }
 
-        return new double[] {bottom, top};
+        return new int[] {bottom, top};
 
     }
-    public double interpolateLauncherPowerFromTable(int launcherID, double[] distanceList, double[] powerList, double targetDistance, double deltaDistance) {
+    public double[] interpolateLauncherPowerFromTable(int launcherID, double[] distanceList, double[] powerList, double targetDistance, double deltaDistance) {
 
         // FUNCTIONALITY:
         // launcherID -> is NECTAR launcher vs. POLLEN launcher
@@ -65,15 +65,15 @@ public class Launcher {
         // CLASS INTERACTIONS:
         // N/A
 
-        double[] powerBounds = getBoundingIndexes(distanceList, targetDistance);
+        int[] powerBounds = getBoundingIndexes(distanceList, targetDistance);
         // since each power index is directly associated with a distance, we can use distance indexes for power indexes
 
         double targetRPM =
-                ((targetDistance - distanceList[1]) * // this is just the change in x from point A to point B
-                        ((powerBounds[2] - powerBounds[1])/deltaDistance))  // this is the slope of the line
-                        + powerList[1]; // this is the y intercept
+                ((targetDistance - distanceList[powerBounds[0]]) * // this is just the change in x from point A to point B
+                        ((powerList[powerBounds[1]] - powerList[powerBounds[0]])/deltaDistance))  // this is the slope of the line
+                        + powerList[0]; // this is the y intercept
 
-        return targetRPM;
+        return new double[] {targetRPM, powerBounds[0], powerBounds[1]};
     }
 
     public boolean isLauncherPowered(int launcherID, double targetRPM, double epsilon) {
@@ -94,7 +94,7 @@ public class Launcher {
         return Math.abs(rpm - targetRPM) <= epsilon;
     }
 
-    public void toggleLauncher(int launcherID, double targetRPM, double epsilon, boolean toggle) {
+    public void toggleLauncher(int launcherID, double[] result, double epsilon, boolean toggle) {
         // FUNCTIONALITY:
         // launcherID -> is NECTAR launcher vs. POLLEN launcher
             // launcherID = 1 -> POLLEN
@@ -106,10 +106,10 @@ public class Launcher {
         // N/A
 
         if (launcherID == 1) {
-            pollen_launcher.setVelocity(toggle ? targetRPM*6.0 : 0);
+            pollen_launcher.setVelocity(toggle ? result[0]*6.0 : 0);
         }
         else  {
-            nectar_launcher.setVelocity(toggle ? targetRPM*6.0 : 0);
+            nectar_launcher.setVelocity(toggle ? result[0]*6.0 : 0);
         }
 
 

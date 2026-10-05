@@ -17,6 +17,8 @@ public class NectarLauncherTest extends OpMode {
     boolean a2Pressed = false;
     boolean b2Pressed = false;
 
+    double[] result;
+
     @Override
     public void init() {
         // in init(),
@@ -50,10 +52,22 @@ public class NectarLauncherTest extends OpMode {
                 launcherClass.globalEpsilon,
                 b2Pressed);
 
+        result = launcherClass.interpolateLauncherPowerFromTable(2,
+                launcherClass.nectar_distance_list,
+                launcherClass.nectar_power_list,
+                camera.getDistanceFromAprilTag(),
+                launcherClass.globalDelta);
+
 
         if (gamepad2.bWasPressed()) {
             b2Pressed = !b2Pressed;
         }
+
+        telemetry.addData("targetVelocity", result[0]);
+
+//        telemetry.addData("velocityError", result[0]);
+        telemetry.addData("power_1", result[1]);
+        telemetry.addData("power_2", result[2]);
 
 
     }
