@@ -19,8 +19,8 @@ public class Odometry {
         double xStartInches = odometryParameters[0];
         double yStartInches = odometryParameters[1];
         double headingStartDegrees = odometryParameters[2];
-        //xStartIcnehs = The robot's starting position in inches.
-        //yStarticnehs = The robot's starting position in inches.
+        //xStartInches = The robot's starting position in inches.
+        //yStartInches = The robot's starting position in inches.
         //headingStartDegeres = The robot's starting orientation in degrees.
         pinpoint = hardwareMap.get(GoBildaPinpointDriver.class, "pinpoint");
         //Configure the odometry sensor as "pinpoint".
@@ -85,7 +85,7 @@ public class Odometry {
         //FUNCTIONALITY:
         //uses pinpoint to get robot x vel, y vel, and rotational vel
         //units inches per second/degrees per second
-        //return 3 things (xvel, yvel, headingvel)
+        //return 3 things (xVel, yVel, headingVel)
 
         //class interactions; None
         double xVel = pinpoint.getVelX(DistanceUnit.INCH);
