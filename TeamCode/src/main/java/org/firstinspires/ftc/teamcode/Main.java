@@ -70,8 +70,8 @@ public class Main extends OpMode {
         //nectar launcher
         launcherClass.toggleLauncher(2,
                 launcherClass.interpolateLauncherPowerFromTable(2,
-                        launcherClass.pollen_distance_list,
-                        launcherClass.pollen_power_list,
+                        launcherClass.nectar_distance_list,
+                        launcherClass.nectar_power_list,
                         camera.getDistanceFromAprilTag(),
                         launcherClass.globalDelta),
                 launcherClass.globalEpsilon,
@@ -87,14 +87,5 @@ public class Main extends OpMode {
 
     }
     
-    @Override
-    public void loop() {
-        double x = gamepad1.left_stick_x;   // x position
-        double y = -gamepad1.left_stick_y;   // y position (flipped: gamepad up = negative)
-        double rx = gamepad1.right_stick_x;  // rotation
-
-        float yaw = (float) odometry.getRobotAngle(); // radians
-
-        drive.driveUpdateFromGamepadInput(x, y, rx, yaw);
-    }
+    
 }
