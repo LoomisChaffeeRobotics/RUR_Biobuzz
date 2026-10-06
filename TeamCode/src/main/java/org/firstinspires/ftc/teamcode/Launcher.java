@@ -20,6 +20,8 @@ public class Launcher {
     public double globalDelta = 0.1;
     public double globalEpsilon = 50;
 
+    public double lastVelocity = 0;
+
     public void init(HardwareMap hardwareMap) {
         pollen_launcher = hardwareMap.get(DcMotorEx.class, "pollen_launcher");
         nectar_launcher = hardwareMap.get(DcMotorEx.class, "nectar_launcher");
@@ -112,7 +114,7 @@ public class Launcher {
             nectar_launcher.setVelocity(toggle ? result[0]*6.0 : 0);
         }
 
-
+        lastVelocity = toggle ? result[0]*6.0 : 0;
 
     }
 
