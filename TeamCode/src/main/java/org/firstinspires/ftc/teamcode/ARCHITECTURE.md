@@ -94,7 +94,7 @@ Nectar_power_list =  the column of power in the look up table for nectar
 
 globalDelta = change in x value so we could calculate the slope of every point for the look up table created through testing.
 
-globaEpsilon = maximum acceptable error for the velocity. If there is too much velocity difference between what is the real velocity and the look up table’s ideal velocity return false (not shoot).
+globalEpsilon = maximum acceptable error for the velocity. If there is too much velocity difference between what is the real velocity and the look up table’s ideal velocity return false (not shoot).
 
 pollen launcher = DcMotor + hardwaremap
 nectar_launcher = DcMotor = hardwaremap
