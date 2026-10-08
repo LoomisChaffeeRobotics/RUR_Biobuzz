@@ -22,7 +22,7 @@ public class TurretVelocityRealignment {
         // need Odometry class to find the velocity
     }
 
-    double[] getAdjustedShootingInfo(int aprilTagID) {
+    double[] getAdjustedShootingInfo(int aprilTagID, int heightDisplacement) {
 
         double[] aprilTagPosition = cameraClass.getAprilTagPosition(aprilTagID);
 
@@ -35,7 +35,7 @@ public class TurretVelocityRealignment {
 
         double[] final_displacement = new double[]{initial_displacement[0] + velocity_displacement[0], initial_displacement[1] + velocity_displacement[1]};
 
-        double new_distance = Math.sqrt(final_displacement[0] * final_displacement[0] + final_displacement[1] * final_displacement[1]);
+        double new_distance = Math.sqrt((final_displacement[0] * final_displacement[0]) + (final_displacement[1] * final_displacement[1]) + (heightDisplacement * heightDisplacement));
         double new_angle = Math.atan2(final_displacement[1], final_displacement[0]);
         // FUNCTIONALITY:
         // uses the robot's velocity vector ( from getVelocityDirectionalOffset() ),
