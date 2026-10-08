@@ -18,7 +18,7 @@ public class Intake {
 
         // CLASS INTERACTIONS:
         // N/A
-        return true;
+        return false;
     }
 
     public boolean toggleIntake(boolean condition) {
