@@ -26,14 +26,13 @@ public class Intake {
         // when "condition" is true, run intake if not full ( use isFull() )
         // when "condition" is false, always turn off the intake
         // returns true if it succeeded and false if it failed (e.g. was full but tried to run)
-        if (condition && !isFull(4)) {
+        if (condition) { // && !isFull(4)
             intakeMotor.setPower(1);
             return true;
         }
-
-        else if (condition && isFull(4)) {
-            return false;
-        }
+//        else if (condition) { // isFull(4)
+//            return false;
+//        }
         else if (!condition) {
             intakeMotor.setPower(0);
             return true;
