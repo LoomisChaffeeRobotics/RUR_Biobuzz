@@ -22,9 +22,21 @@ public class TurretVelocityRealignment {
         // need Odometry class to find the velocity
     }
 
-    double[] getAdjustedShootingInfo(double velocityOffset, int aprilTagID) {
+    double[] getAdjustedShootingInfo(int aprilTagID, int heightDisplacement) {
 
+        double[] aprilTagPosition = cameraClass.getAprilTagPosition(aprilTagID);
 
+        double[] robotPosition = odometryClass.getRobotPosition();
+        double[] robotVelocity = getVelocityDirectionalOffset();
+
+        double[] initial_displacement = new double[]{aprilTagPosition[0] - robotPosition[0], aprilTagPosition[1] - robotPosition[1]};
+        double dt = 0.5; // estimated time delay in seconds (this should be configurable)
+        double[] velocity_displacement = new double[]{robotVelocity[0] * dt, robotVelocity[1] * dt};
+
+        double[] final_displacement = new double[]{initial_displacement[0] + velocity_displacement[0], initial_displacement[1] + velocity_displacement[1]};
+
+        double new_distance = Math.sqrt((final_displacement[0] * final_displacement[0]) + (final_displacement[1] * final_displacement[1]) + (heightDisplacement * heightDisplacement));
+        double new_angle = Math.atan2(final_displacement[1], final_displacement[0]);
         // FUNCTIONALITY:
         // uses the robot's velocity vector ( from getVelocityDirectionalOffset() ),
         // also uses the position of the robot, AND the position of the aprilTag to find new angle and distance
@@ -43,7 +55,7 @@ public class TurretVelocityRealignment {
         //CLASS INTERACTIONS:
         // need Camera class to get apriltag position
         // (optional) might need Launcher class to find dt, unless it's a hardcoded value
-        return new double[] {0.0, 0.0};
+        return new double[] {new_distance, new_angle};
     }
 
 }

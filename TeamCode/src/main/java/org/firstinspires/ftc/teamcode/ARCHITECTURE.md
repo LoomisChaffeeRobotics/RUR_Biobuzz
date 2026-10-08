@@ -30,6 +30,10 @@ _autoRoutine()_
 
 Put the path function in order to create the whole routine.
 
+_sequential_: Ivy command to run the path in order.
+
+Scheduler: Ivy scheduler that runs the commands in order.
+
 ## Camera Class
 A limelight camera is mounted on to the robot where it’s used to detect AprilTag and get the distance from it to adjust the turret’s speed to shoot.
 
