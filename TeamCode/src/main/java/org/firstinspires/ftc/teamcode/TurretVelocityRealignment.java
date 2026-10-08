@@ -5,15 +5,18 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 public class TurretVelocityRealignment {
     //Class determines the target angle to turn the turret and turns the turret.
 
-    HardwareMap hardwareMap;
+    Odometry odometryClass;
+    public void init(HardwareMap hardwareMap, double[] odometryParameters) {
+        odometryClass = new Odometry();
+        odometryClass.init(hardwareMap, odometryParameters);
+    }
     double[] getVelocityDirectionalOffset() {
         // FUNCTIONALITY:
         // gets the robots velocity vector
         // return [x, y]
-
+        return new double[]{odometryClass.getRobotVelocity()[0], odometryClass.getRobotVelocity()[1]};
         // CLASS INTERACTIONS:
         // need Odometry class to find the velocity
-        return new double[] {0.0, 0.0};
     }
 
     double[] getAdjustedShootingInfo(double velocityOffset, int aprilTagID) {
@@ -28,6 +31,9 @@ public class TurretVelocityRealignment {
                 // new distance = |D|
             // from this, you can get that angle = Math.atan2(D_y, D_x), which takes the arctangent
         // return new [distance, angle]
+
+
+
 
         //CLASS INTERACTIONS:
         // need Camera class to get apriltag position
