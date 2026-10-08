@@ -46,7 +46,14 @@ public class Main extends OpMode {
 
     @Override
     public void loop() {
-        if (gamepad1.a) {
+        if (gamepad1.a) {launcherClass.toggleLauncher(1,
+                launcherClass.interpolateLauncherPowerFromTable(1,
+                        launcherClass.pollen_distance_list,
+                        launcherClass.pollen_power_list,
+                        camera.getDistanceFromAprilTag(),
+                        launcherClass.globalDelta),
+                launcherClass.globalEpsilon,
+                a2Pressed);
             intake.toggleIntake(true);
         } else {
             intake.toggleIntake(false);
