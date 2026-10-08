@@ -24,7 +24,13 @@ public class IntakeTesting extends OpMode {
     @Override
     public void loop() {
         driveClass.driveUpdateFromGamepadInput(gamepad1.left_stick_x, -gamepad1.left_stick_y, gamepad1.right_stick_x, (float) Math.toRadians(odometry.getRobotAngle()));
-        intakeClass.toggleIntake(gamepad1.a);
+        if (gamepad1.a) {
+            intakeClass.intakeMotor.setPower(1);
+        } else if (gamepad1.y) {
+            intakeClass.intakeMotor.setPower(-1);
+        } else {
+            intakeClass.intakeMotor.setPower(0);
+        }
         telemetry.addData("heading in degtrerrees", odometry.getRobotAngle());
         telemetry.update();
 
