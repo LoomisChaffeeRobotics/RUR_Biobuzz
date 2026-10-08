@@ -89,6 +89,23 @@ public class Auto extends OpMode {
                 Commands.instant(() -> intakeClass.toggleIntake(true)),
                 Commands.waitMs(1000),
                 Commands.instant(() -> intakeClass.toggleIntake(false)),
+                Commands.instant(() ->
+                        launcherClass.toggleLauncher(1,
+                                launcherClass.interpolateLauncherPowerFromTable(1,
+                                        launcherClass.pollen_distance_list,
+                                        launcherClass.pollen_power_list,
+                                        cameraClass.getDistanceFromAprilTag(),
+                                        launcherClass.globalDelta),
+                                launcherClass.globalEpsilon,
+                                true) //set pose to start pose
+                ), //this whole instant turns launcherclass.togglelauncher into a runnable and runs it once i believe
+                Commands.waitMs(500),
+                Commands.instant(() ->
+                        launcherClass.toggleLauncher(1,
+                                new double[]{0.0},
+                                launcherClass.globalEpsilon,
+                                false) //set pose to start pose
+                ), //turn launcher off
                 follow(follower, parkFromFlower())
                 
                 //Add things here

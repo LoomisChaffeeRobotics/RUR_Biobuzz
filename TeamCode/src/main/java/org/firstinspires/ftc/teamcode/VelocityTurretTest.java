@@ -1,8 +1,10 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
+@TeleOp
 public class VelocityTurretTest extends OpMode {
 
     Intake intake;
@@ -52,8 +54,11 @@ public class VelocityTurretTest extends OpMode {
 
         launcher.setVelocity(velocityNumber);
 
-        if (gamepad2.a) {
-            velocityNumber += 10;
+        if (gamepad1.a) {
+            velocityNumber += 2.5;
+        }
+        if (gamepad1.b) {
+            velocityNumber -= 2.5;
         }
 
         telemetry.addData("targetVelocity", velocityNumber);
