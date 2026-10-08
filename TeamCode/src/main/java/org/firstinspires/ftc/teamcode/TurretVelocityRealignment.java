@@ -6,9 +6,12 @@ public class TurretVelocityRealignment {
     //Class determines the target angle to turn the turret and turns the turret.
 
     Odometry odometryClass;
+    Camera cameraClass;
     public void init(HardwareMap hardwareMap, double[] odometryParameters) {
         odometryClass = new Odometry();
         odometryClass.init(hardwareMap, odometryParameters);
+        cameraClass = new Camera();
+        cameraClass.init(hardwareMap, odometryParameters);
     }
     double[] getVelocityDirectionalOffset() {
         // FUNCTIONALITY:
@@ -20,6 +23,8 @@ public class TurretVelocityRealignment {
     }
 
     double[] getAdjustedShootingInfo(double velocityOffset, int aprilTagID) {
+
+
         // FUNCTIONALITY:
         // uses the robot's velocity vector ( from getVelocityDirectionalOffset() ),
         // also uses the position of the robot, AND the position of the aprilTag to find new angle and distance
