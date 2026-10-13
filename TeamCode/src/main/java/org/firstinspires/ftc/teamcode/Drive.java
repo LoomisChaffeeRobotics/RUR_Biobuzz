@@ -32,9 +32,16 @@ public class Drive {
 
 
     }
+    public void driveTankDrive(double leftStick, double rightStick) {
+
+        frontLeft.setPower(leftStick);
+        backLeft.setPower(leftStick);
+        frontRight.setPower(rightStick);
+        backRight.setPower(rightStick);
+    }
     public void driveUpdateFromGamepadInput(double x, double y, double rx, float yaw) {
 
-        //remember thant y is the opposite of the gamepad y
+        //remember that y is the opposite of the gamepad y
         //i thunk yaw is radians
         //idk what rx is but it is the rotation of the robot
         double rotX = x * Math.cos(-yaw) - y * Math.sin(-yaw);
