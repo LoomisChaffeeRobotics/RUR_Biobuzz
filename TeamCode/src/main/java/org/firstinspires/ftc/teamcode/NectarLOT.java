@@ -1,0 +1,92 @@
+package org.firstinspires.ftc.teamcode;
+
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+
+public class NectarLOT {
+    @TeleOp
+    public class VelocityTurretTest extends OpMode {
+
+        Intake intake;
+        Drive drive;
+        Launcher launcherClass;
+        Camera camera;
+        Odometry odometry;
+
+        double[] odometryConstants = {0, 0, 0};
+        double distanceToAprilTag = 0;
+        int targetAprilTagID = 1;
+
+        boolean a2Pressed = false;
+        boolean b2Pressed = false;
+
+        double[] result;
+
+        double velocityNumber = 0;
+
+        double rulerDistance = 0;
+
+        double diagonalDistance =0;
+        double hiveHeight = 40.5;
+
+
+        DcMotorEx launcher;
+
+        @Override
+        public void init() {
+            // in init(),
+            // get intake hardware (hardware.get()),
+            // in loop(),
+            // make so that: pressing A key -> toggleIntake,
+            // with correct parameters passed in
+
+//        launcherClass = new Launcher();
+//        launcherClass.init(hardwareMap);
+
+            launcher = hardwareMap.get(DcMotorEx.class, "launcher");
+
+
+        }
+
+        @Override
+        public void loop() {
+            //launcher handling
+            // pollen launcher
+
+//        launcherClass.toggleLauncher(1,
+//                new double[] {velocityNumber},
+//                launcherClass.globalEpsilon,
+//                true);
+
+            launcher.setVelocity(velocityNumber);
+
+            diagonalDistance = Math.sqrt(Math.pow(rulerDistance,2) + Math.pow(hiveHeight, 2));
+
+            if (gamepad1.dpad_down) {
+                rulerDistance += 0.01;
+            }
+            if (gamepad1.dpad_up) {
+                rulerDistance -= 0.01;
+            }
+
+            if (gamepad1.a) {
+                velocityNumber += 2.5;
+            }
+            if (gamepad1.b) {
+                velocityNumber -= 2.5;
+            }
+
+
+
+            telemetry.addData("DiagonalDistance",diagonalDistance);
+            telemetry.addData("RulerDistance", rulerDistance);
+
+            telemetry.addData("targetVelocity", velocityNumber);
+            telemetry.addData("realVelocity", launcher.getVelocity());
+
+
+        }
+
+    }
+}
