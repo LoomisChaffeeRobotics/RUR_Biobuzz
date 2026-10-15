@@ -39,13 +39,13 @@ public class Drive {
         frontRight.setPower(rightStick);
         backRight.setPower(rightStick);
     }
-    public void driveUpdateFromGamepadInput(double x, double y, double rx, float yaw) {
+    public void driveUpdateFromGamepadInput(double x, double y, double rx, double yaw) {
 
         //remember that y is the opposite of the gamepad y
-        //i thunk yaw is radians
+        //yaw degrees
         //idk what rx is but it is the rotation of the robot
-        double rotX = x * Math.cos(-yaw) - y * Math.sin(-yaw);
-        double rotY = x * Math.sin(-yaw) + y * Math.cos(-yaw);
+        double rotX = x * Math.cos(-Math.toRadians(yaw)) - y * Math.sin(-Math.toRadians(yaw));
+        double rotY = x * Math.sin(-Math.toRadians(yaw)) + y * Math.cos(-Math.toRadians(yaw));
 
         rotX = rotX * strafeCounteract;
 

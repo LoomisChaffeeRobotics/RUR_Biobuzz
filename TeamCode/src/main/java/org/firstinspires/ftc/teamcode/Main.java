@@ -59,7 +59,7 @@ public class Main extends OpMode {
             intake.toggleIntake(false);
         }
 
-        drive.driveUpdateFromGamepadInput((double) gamepad1.left_stick_x, (double) gamepad1.left_stick_y, (double) gamepad1.right_stick_y, (float) odometry.getRobotAngle());
+        drive.driveUpdateFromGamepadInput((double) gamepad1.left_stick_x, (double) -gamepad1.left_stick_y, (double) gamepad1.right_stick_x, odometry.getRobotAngle());
 
 
         //launcher handling

@@ -23,7 +23,7 @@ public class OdometryTesting extends OpMode {
 
     @Override
     public void loop() {
-        drive.driveTankDrive(-gamepad1.left_stick_y, -gamepad1.right_stick_y);
+        drive.driveUpdateFromGamepadInput(gamepad1.left_stick_x, -gamepad1.left_stick_y, gamepad1.right_stick_x, odometry.getRobotAngle());
         telemetry.addData("Robot X: ", odometry.getRobotPosition()[0]);
         telemetry.addData("Robot Y: ", odometry.getRobotPosition()[1]);
         telemetry.addData("Robot Heading: ", odometry.getRobotAngle());

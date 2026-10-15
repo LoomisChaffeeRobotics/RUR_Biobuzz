@@ -10,6 +10,8 @@ public class IntakeTesting extends OpMode {
     Drive driveClass;
     Intake intakeClass;
     Odometry odometry;
+
+
     @Override
     public void init() {
         driveClass = new Drive();
@@ -23,12 +25,12 @@ public class IntakeTesting extends OpMode {
 
     @Override
     public void loop() {
-        driveClass.driveUpdateFromGamepadInput(gamepad1.left_stick_x, -gamepad1.left_stick_y, gamepad1.right_stick_x, (float) Math.toRadians(odometry.getRobotAngle()));
+        driveClass.driveUpdateFromGamepadInput(gamepad1.left_stick_x, -gamepad1.left_stick_y, gamepad1.right_stick_x, (float) odometry.getRobotAngle());
         //intake: -1 power is forward, 1 power is backward.
         if (gamepad1.a) {
-            intakeClass.intakeMotor.setPower(1);
+            intakeClass.intakeMotor.setPower(0.67);
         } else if (gamepad1.y) {
-            intakeClass.intakeMotor.setPower(-1);
+            intakeClass.intakeMotor.setPower(-0.67);
         } else {
             intakeClass.intakeMotor.setPower(0);
         }
