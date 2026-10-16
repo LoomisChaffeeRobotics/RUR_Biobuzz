@@ -46,11 +46,14 @@ public class Main extends OpMode {
 
     @Override
     public void loop() {
+
+        double projection_distance = Math.sqrt( (camera.getDistanceFromAprilTag() * camera.getDistanceFromAprilTag() ) - (camera.height_from_apriltag * camera.height_from_apriltag) );
+
         if (gamepad1.a) {launcherClass.toggleLauncher(1,
                 launcherClass.interpolateLauncherPowerFromTable(1,
                         launcherClass.pollen_distance_list,
                         launcherClass.pollen_power_list,
-                        camera.getDistanceFromAprilTag(),
+                        projection_distance,
                         launcherClass.globalDelta),
                 launcherClass.globalEpsilon,
                 a2Pressed);
@@ -69,7 +72,7 @@ public class Main extends OpMode {
                 launcherClass.interpolateLauncherPowerFromTable(1,
                         launcherClass.pollen_distance_list,
                         launcherClass.pollen_power_list,
-                        camera.getDistanceFromAprilTag(),
+                        projection_distance,
                         launcherClass.globalDelta),
                 launcherClass.globalEpsilon,
                 a2Pressed);
@@ -79,7 +82,7 @@ public class Main extends OpMode {
                 launcherClass.interpolateLauncherPowerFromTable(2,
                         launcherClass.nectar_distance_list,
                         launcherClass.nectar_power_list,
-                        camera.getDistanceFromAprilTag(),
+                        projection_distance,
                         launcherClass.globalDelta),
                 launcherClass.globalEpsilon,
                 b2Pressed);

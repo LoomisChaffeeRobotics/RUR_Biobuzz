@@ -4,9 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
-public class NectarLOT {
-    @TeleOp
-    public class VelocityTurretTest extends OpMode {
+@TeleOp
+public class NectarLOT extends OpMode {
 
         Intake intake;
         Drive drive;
@@ -28,7 +27,7 @@ public class NectarLOT {
         double rulerDistance = 0;
 
         double diagonalDistance =0;
-        double hiveHeight = 40.5;
+        double hiveHeight = 401.5;
 
 
         DcMotorEx launcher;
@@ -64,10 +63,10 @@ public class NectarLOT {
             diagonalDistance = Math.sqrt(Math.pow(rulerDistance,2) + Math.pow(hiveHeight, 2));
 
             if (gamepad1.dpad_down) {
-                rulerDistance += 0.01;
+                rulerDistance += 0.25;
             }
             if (gamepad1.dpad_up) {
-                rulerDistance -= 0.01;
+                rulerDistance -= 0.25;
             }
 
             if (gamepad1.a) {
@@ -89,4 +88,4 @@ public class NectarLOT {
         }
 
     }
-}
+

@@ -22,6 +22,9 @@ public class Camera {
     public Limelight3A limelight;
     Odometry odometry;
     HardwareMap hardwareMap;
+    public double camera_height = 0;
+    public double target_height = 40.5;
+    public double height_from_apriltag = target_height - camera_height;
 
     public void init(HardwareMap hardwareMap, double[] odometryParameters) {
         limelight = hardwareMap.get(Limelight3A.class, "limelight");
@@ -34,7 +37,7 @@ public class Camera {
     public double getDistanceFromAprilTag() {
         double camera_mounted_angle = 0;
         double camera_height = 0;
-        double target_height = 0;
+        double target_height = 40.5;
         double angleToGoalDegrees = odometry.getRobotAngle();
         double angleToGoalRadians = Math.toRadians(angleToGoalDegrees);
         double distance_from_apriltag = (target_height - camera_height) / Math.tan(angleToGoalRadians);
