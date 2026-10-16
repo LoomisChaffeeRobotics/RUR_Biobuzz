@@ -60,7 +60,7 @@ public class NectarLOT extends OpMode {
 
             launcher.setVelocity(velocityNumber);
 
-            diagonalDistance = Math.sqrt(Math.pow(rulerDistance,2) + Math.pow(hiveHeight, 2));
+//            diagonalDistance = Math.sqrt(Math.pow(rulerDistance,2) + Math.pow(hiveHeight, 2));
 
             if (gamepad1.dpad_down) {
                 rulerDistance += 0.25;
@@ -78,7 +78,7 @@ public class NectarLOT extends OpMode {
 
 
 
-            telemetry.addData("DiagonalDistance",diagonalDistance);
+//            telemetry.addData("DiagonalDistance",diagonalDistance);
             telemetry.addData("RulerDistance", rulerDistance);
 
             telemetry.addData("targetVelocity", velocityNumber);
