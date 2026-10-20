@@ -13,12 +13,12 @@ public class Launcher {
     DcMotorEx nectar_launcher;
 
     public double[] pollen_distance_list = {};
-    public double[] nectar_distance_list = {};
+    public double[] nectar_distance_list = {30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70, 72, 74};
     public double[] pollen_power_list = {};
-    public double[] nectar_power_list = {};
+    public double[] nectar_power_list = {1372, 1352, 1352, 1356, 1344, 14400, 1384, 1380, 1396, 1416, 1520, 1508, 1496, 1504, 1536, 1596, 1624, 1672, 1708, 1716, 1728, 1736, 1744};
 
-    public double globalDelta = 0.1;
-    public double globalEpsilon = 50;
+    public double globalDelta = 2;
+    public double globalEpsilon = 40;
 
     public double lastVelocity = 0;
 
@@ -104,17 +104,17 @@ public class Launcher {
         // if the launcher isn't powered, it attempts to power it
             // can use along with isLauncherPowered() function
 
+        //remember: ticks per second to revs per minute is 60/28
         // CLASS INTERACTIONS:
         // N/A
 
         if (launcherID == 1) {
-            pollen_launcher.setVelocity(toggle ? result[0]*6.0 : 0);
+            pollen_launcher.setVelocity(toggle ? result[0] : 0);
         }
         else  {
-            nectar_launcher.setVelocity(toggle ? result[0]*6.0 : 0);
+            nectar_launcher.setVelocity(toggle ? result[0] : 0);
         }
-
-        lastVelocity = toggle ? result[0]*6.0 : 0;
+        lastVelocity = toggle ? result[0] : 0;
 
     }
 

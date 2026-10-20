@@ -7,10 +7,10 @@ public class NectarLauncherTest extends OpMode {
     Intake intake;
     Drive drive;
     Launcher launcherClass;
-    Camera camera;
     Odometry odometry;
 
     double[] odometryConstants = {0, 0, 0};
+    double distance = 0;
     double distanceToAprilTag = 0;
     int targetAprilTagID = 1;
 
@@ -30,8 +30,6 @@ public class NectarLauncherTest extends OpMode {
         launcherClass = new Launcher();
         launcherClass.init(hardwareMap);
 
-        camera = new Camera();
-        camera.init(hardwareMap, odometryConstants);
 
         odometry = new Odometry();
         odometry.init(hardwareMap, odometryConstants);
@@ -47,7 +45,7 @@ public class NectarLauncherTest extends OpMode {
                 launcherClass.interpolateLauncherPowerFromTable(2,
                         launcherClass.nectar_distance_list,
                         launcherClass.nectar_power_list,
-                        camera.getDistanceFromAprilTag(),
+                        distance,
                         launcherClass.globalDelta),
                 launcherClass.globalEpsilon,
                 b2Pressed);
@@ -55,12 +53,18 @@ public class NectarLauncherTest extends OpMode {
         result = launcherClass.interpolateLauncherPowerFromTable(2,
                 launcherClass.nectar_distance_list,
                 launcherClass.nectar_power_list,
-                camera.getDistanceFromAprilTag(),
+                distance,
                 launcherClass.globalDelta);
 
 
         if (gamepad2.bWasPressed()) {
             b2Pressed = !b2Pressed;
+        }
+        if (gamepad1.dpad_up) {
+            distance += 2.5;
+        }
+        if (gamepad1.dpad_down) {
+            distance -= 2.5;
         }
 
         telemetry.addData("targetVelocity", result[0]);

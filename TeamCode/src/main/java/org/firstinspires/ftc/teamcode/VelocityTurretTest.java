@@ -62,7 +62,7 @@ public class VelocityTurretTest extends OpMode {
         }
 
         telemetry.addData("targetVelocity", velocityNumber);
-        telemetry.addData("realVelocity", launcher.getVelocity());
+        telemetry.addData("realVelocity, ticks per second", launcher.getVelocity());
 
 
     }
