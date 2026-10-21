@@ -9,7 +9,7 @@ public class Launcher {
     //Class calculates the target speed of turret and sets turret to correct power.
 
     HardwareMap hardwareMap;
-    DcMotorEx pollen_launcher;
+//    DcMotorEx pollen_launcher;
     DcMotorEx nectar_launcher;
 
     public double[] pollen_distance_list = {};
@@ -23,7 +23,7 @@ public class Launcher {
     public double lastVelocity = 0;
 
     public void init(HardwareMap hardwareMap) {
-        pollen_launcher = hardwareMap.get(DcMotorEx.class, "pollen_launcher");
+//        pollen_launcher = hardwareMap.get(DcMotorEx.class, "pollen_launcher");
         nectar_launcher = hardwareMap.get(DcMotorEx.class, "nectar_launcher");
     }
 
@@ -78,23 +78,23 @@ public class Launcher {
         return new double[] {targetRPM, powerBounds[0], powerBounds[1]};
     }
 
-    public boolean isLauncherPowered(int launcherID, double targetRPM, double epsilon) {
-
-        // FUNCTIONALITY:
-        // launcherID -> is NECTAR launcher vs. POLLEN launcher
-            // launcherID = 1 -> POLLEN
-            // launcherID = 2 -> NECTAR
-        // needs to know if a specific launcher RPM is within epsilon of the targetRPM
-
-        // CLASS INTERACTIONS:
-        // N/A
-
-        double launcherVelocity = launcherID == 1 ? pollen_launcher.getVelocity() : nectar_launcher.getVelocity();
-
-        double rpm = launcherVelocity / 6.0;
-
-        return Math.abs(rpm - targetRPM) <= epsilon;
-    }
+//    public boolean isLauncherPowered(int launcherID, double targetRPM, double epsilon) {
+//
+//        // FUNCTIONALITY:
+//        // launcherID -> is NECTAR launcher vs. POLLEN launcher
+//            // launcherID = 1 -> POLLEN
+//            // launcherID = 2 -> NECTAR
+//        // needs to know if a specific launcher RPM is within epsilon of the targetRPM
+//
+//        // CLASS INTERACTIONS:
+//        // N/A
+//
+////        double launcherVelocity = launcherID == 1 ? pollen_launcher.getVelocity() : nectar_launcher.getVelocity();
+//
+////        double rpm = launcherVelocity / 6.0;
+//
+////        return Math.abs(rpm - targetRPM) <= epsilon;
+//    }
 
     public void toggleLauncher(int launcherID, double[] result, double epsilon, boolean toggle) {
         // FUNCTIONALITY:
@@ -109,7 +109,7 @@ public class Launcher {
         // N/A
 
         if (launcherID == 1) {
-            pollen_launcher.setVelocity(toggle ? result[0] : 0);
+//            pollen_launcher.setVelocity(toggle ? result[0] : 0);
         }
         else  {
             nectar_launcher.setVelocity(toggle ? result[0] : 0);

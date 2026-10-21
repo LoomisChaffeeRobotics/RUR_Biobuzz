@@ -1,13 +1,15 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+@TeleOp
 public class NectarLauncherTest extends OpMode {
 
     Intake intake;
     Drive drive;
     Launcher launcherClass;
-    Odometry odometry;
+//    Odometry odometry;
 
     double[] odometryConstants = {0, 0, 0};
     double distance = 0;
@@ -31,8 +33,8 @@ public class NectarLauncherTest extends OpMode {
         launcherClass.init(hardwareMap);
 
 
-        odometry = new Odometry();
-        odometry.init(hardwareMap, odometryConstants);
+//        odometry = new Odometry();
+//        odometry.init(hardwareMap, odometryConstants);
     }
 
     @Override
@@ -69,7 +71,7 @@ public class NectarLauncherTest extends OpMode {
 
         telemetry.addData("targetVelocity", result[0]);
 
-//        telemetry.addData("velocityError", result[0]);
+        telemetry.addData("distance", distance);
         telemetry.addData("power_1", result[1]);
         telemetry.addData("power_2", result[2]);
 
