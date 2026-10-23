@@ -28,6 +28,7 @@ public class Launcher {
     public void init(HardwareMap hardwareMap) {
 //        pollen_launcher = hardwareMap.get(DcMotorEx.class, "pollen_launcher");
         nectar_launcher = hardwareMap.get(DcMotorEx.class, "nectar_launcher");
+        nectar_servo = hardwareMap.get(CRServo.class, "nectar_servo");
     }
 
     int[] getBoundingIndexes(double[] list, double targetValue) {
