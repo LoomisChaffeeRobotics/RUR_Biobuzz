@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.CRServoImplEx;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -11,6 +13,7 @@ public class Launcher {
     HardwareMap hardwareMap;
 //    DcMotorEx pollen_launcher;
     DcMotorEx nectar_launcher;
+    CRServo nectar_servo;
 
     public double[] pollen_distance_list = {};
     public double[] nectar_distance_list = {30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70, 72, 74};
@@ -113,6 +116,7 @@ public class Launcher {
         }
         else  {
             nectar_launcher.setVelocity(toggle ? result[0] : 0);
+            nectar_servo.setPower(1);
         }
         lastVelocity = toggle ? result[0] : 0;
 
