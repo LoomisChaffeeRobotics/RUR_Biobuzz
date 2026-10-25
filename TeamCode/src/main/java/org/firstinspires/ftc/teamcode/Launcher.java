@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.CRServoImplEx;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -11,11 +13,12 @@ public class Launcher {
     HardwareMap hardwareMap;
 //    DcMotorEx pollen_launcher;
     DcMotorEx nectar_launcher;
+    CRServo nectar_servo;
 
     public double[] pollen_distance_list = {};
     public double[] nectar_distance_list = {30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70, 72, 74};
     public double[] pollen_power_list = {};
-    public double[] nectar_power_list = {1372, 1352, 1352, 1356, 1344, 1440, 1384, 1380, 1396, 1416, 1520, 1508, 1496, 1504, 1536, 1596, 1624, 1672, 1708, 1716, 1728, 1736, 1744};
+    public double[] nectar_power_list = {1372, 1352, 1352, 1356, 1344, 14400, 1384, 1380, 1396, 1416, 1520, 1508, 1496, 1504, 1536, 1596, 1624, 1672, 1708, 1716, 1728, 1736, 1744};
 
     public double globalDelta = 2;
     public double globalEpsilon = 40;
@@ -25,6 +28,7 @@ public class Launcher {
     public void init(HardwareMap hardwareMap) {
 //        pollen_launcher = hardwareMap.get(DcMotorEx.class, "pollen_launcher");
         nectar_launcher = hardwareMap.get(DcMotorEx.class, "nectar_launcher");
+        nectar_servo = hardwareMap.get(CRServo.class, "nectar_servo");
     }
 
     int[] getBoundingIndexes(double[] list, double targetValue) {
@@ -73,7 +77,7 @@ public class Launcher {
         double targetRPM =
                 ((targetDistance - distanceList[powerBounds[0]]) * // this is just the change in x from point A to point B
                         ((powerList[powerBounds[1]] - powerList[powerBounds[0]])/deltaDistance))  // this is the slope of the line
-                        + powerList[powerBounds[0]]; // this is the y intercept
+                        + powerList[0]; // this is the y intercept
 
         //target distance = current distance
         //powerBounds[0] = lower bound index for velocity speed
@@ -121,9 +125,10 @@ public class Launcher {
 //            pollen_launcher.setVelocity(toggle ? result[0] : 0);
         }
         else  {
-            nectar_launcher.setVelocity(toggle ? -result[0] : 0);
+            nectar_launcher.setVelocity(toggle ? result[0] : 0);
+            nectar_servo.setPower(1);
         }
-        lastVelocity = toggle ? -result[0] : 0;
+        lastVelocity = toggle ? result[0] : 0;
 
     }
 
