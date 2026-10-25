@@ -12,12 +12,12 @@ public class NectarLauncherTest extends OpMode {
 //    Odometry odometry;
 
     double[] odometryConstants = {0, 0, 0};
-    double distance = 0;
+    double distance = 30;
     double distanceToAprilTag = 0;
     int targetAprilTagID = 1;
 
     boolean a2Pressed = false;
-    boolean b2Pressed = false;
+    boolean b1Pressed = false;
 
     double[] result;
 
@@ -50,7 +50,7 @@ public class NectarLauncherTest extends OpMode {
                         distance,
                         launcherClass.globalDelta),
                 launcherClass.globalEpsilon,
-                b2Pressed);
+                b1Pressed);
 
         result = launcherClass.interpolateLauncherPowerFromTable(2,
                 launcherClass.nectar_distance_list,
@@ -59,21 +59,23 @@ public class NectarLauncherTest extends OpMode {
                 launcherClass.globalDelta);
 
 
-        if (gamepad2.bWasPressed()) {
-            b2Pressed = !b2Pressed;
+        if (gamepad1.bWasPressed()) {
+            b1Pressed = !b1Pressed;
         }
-        if (gamepad1.dpad_up) {
-            distance += 2.5;
+        if (gamepad1.dpadUpWasReleased()) {
+            distance += .25;
         }
-        if (gamepad1.dpad_down) {
-            distance -= 2.5;
+        if (gamepad1.dpadDownWasReleased()) {
+            distance -= .25;
         }
 
         telemetry.addData("targetVelocity", result[0]);
-
+        telemetry.addData("realvelocity", launcherClass.nectar_launcher.getVelocity());
         telemetry.addData("distance", distance);
         telemetry.addData("power_1", result[1]);
         telemetry.addData("power_2", result[2]);
+
+        telemetry.update();
 
 
     }
