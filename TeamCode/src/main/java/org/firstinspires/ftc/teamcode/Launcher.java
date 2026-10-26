@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.CRServoImplEx;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
@@ -19,7 +20,8 @@ public class Launcher {
     public double[] nectar_distance_list = {30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70, 72, 74};
     public double[] pollen_power_list = {};
     public double[] nectar_power_list = {1372, 1352, 1352, 1356, 1344, 14400, 1384, 1380, 1396, 1416, 1520, 1508, 1496, 1504, 1536, 1596, 1624, 1672, 1708, 1716, 1728, 1736, 1744};
-
+    public static PIDFCoefficients nectarLauncherPIDF = new PIDFCoefficients(0.1, 0, 0, 0);
+    public static PIDFCoefficients pollenLauncherPIDF = new PIDFCoefficients(0.1, 0, 0, 0);
     public double globalDelta = 2;
     public double globalEpsilon = 40;
 

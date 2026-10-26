@@ -16,7 +16,7 @@ public class Drive {
     public static double strafeCounteract = 1; //this is a multiplier to make strafing more accurate, since the robot tends to drift when strafing
 
 
-    void init(HardwareMap hardwareMap) {
+    public void init(HardwareMap hardwareMap) {
         frontLeft = hardwareMap.get(DcMotorEx.class, "frontLeft");
         frontRight = hardwareMap.get(DcMotorEx.class, "frontRight");
         backLeft = hardwareMap.get(DcMotorEx.class, "backLeft");
