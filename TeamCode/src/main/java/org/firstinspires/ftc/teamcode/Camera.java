@@ -38,9 +38,9 @@ public class Camera {
         double camera_mounted_angle = 0;
         double camera_height = 0;
         double target_height = 40.5;
-        double angleToGoalDegrees = odometry.getRobotAngle();
+        double angleToGoalDegrees = camera_mounted_angle;
         double angleToGoalRadians = Math.toRadians(angleToGoalDegrees);
-        double distance_from_apriltag = (target_height - camera_height) / Math.tan(angleToGoalRadians);
+        double distance_from_apriltag = (target_height - camera_height) / Math.sin(angleToGoalRadians);
 
         return distance_from_apriltag;
     }
