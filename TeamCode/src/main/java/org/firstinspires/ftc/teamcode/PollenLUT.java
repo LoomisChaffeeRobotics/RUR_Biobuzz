@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 @TeleOp
@@ -31,7 +32,7 @@ public class PollenLUT extends OpMode {
 
 
     DcMotorEx launcher;
-
+    CRServo pollen_servo;
     @Override
     public void init() {
         // in init(),
@@ -44,6 +45,7 @@ public class PollenLUT extends OpMode {
 //        launcherClass.init(hardwareMap);
 
         launcher = hardwareMap.get(DcMotorEx.class, "pollen_launcher");
+        pollen_servo = hardwareMap.get(CRServo.class, "pollen_servo");
 
 
     }
@@ -77,12 +79,14 @@ public class PollenLUT extends OpMode {
         }
 
 
-
+        pollen_servo.setPower(-1);
 //            telemetry.addData("DiagonalDistance",diagonalDistance);
         telemetry.addData("RulerDistance", rulerDistance);
 
         telemetry.addData("targetVelocity", velocityNumber);
         telemetry.addData("realVelocity", launcher.getVelocity());
+
+        telemetry.update();
 
 
     }

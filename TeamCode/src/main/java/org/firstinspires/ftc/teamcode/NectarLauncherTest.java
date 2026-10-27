@@ -70,7 +70,7 @@ public class NectarLauncherTest extends OpMode {
         }
 
         telemetry.addData("targetVelocity", result[0]);
-        telemetry.addData("realvelocity", launcherClass.nectar_launcher.getVelocity());
+//        telemetry.addData("realvelocity", launcherClass.nectar_launcher.getVelocity());
         telemetry.addData("distance", distance);
         telemetry.addData("power_1", result[1]);
         telemetry.addData("power_2", result[2]);

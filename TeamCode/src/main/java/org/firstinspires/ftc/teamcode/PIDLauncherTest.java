@@ -26,7 +26,7 @@ public class PIDLauncherTest extends OpMode {
 
     @Override
     public void loop() {
-        launcherClass.nectar_launcher.setPIDFCoefficients(DcMotorEx.RunMode.RUN_USING_ENCODER, Launcher.nectarLauncherPIDF);
+//        launcherClass.nectar_launcher.setPIDFCoefficients(DcMotorEx.RunMode.RUN_USING_ENCODER, Launcher.nectarLauncherPIDF);
         launcherClass.toggleLauncher(2,
                 launcherClass.interpolateLauncherPowerFromTable(2,
                         launcherClass.nectar_distance_list,
@@ -51,7 +51,7 @@ public class PIDLauncherTest extends OpMode {
         }
 
         telemetry2.addData("Target Velocity", velocityNumber);
-        telemetry2.addData("Real Velocity", launcherClass.nectar_launcher.getVelocity());
+//        telemetry2.addData("Real Velocity", launcherClass.nectar_launcher.getVelocity());
         telemetry2.update();
     }
 }
