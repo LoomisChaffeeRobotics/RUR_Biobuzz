@@ -24,7 +24,7 @@ import static com.pedropathing.ivy.pedro.PedroCommands.follow;
 //      supports advanced trajectory generation (splines, curves), velocity/acceleration constraints,
 //      and integrates with odometry and localization. steeper learning curve and more complex setup.
 @Autonomous
-public class Auto extends OpMode {
+public class ComplexAuto extends OpMode {
     Launcher launcherClass;
     Intake intakeClass;
     Camera cameraClass;
