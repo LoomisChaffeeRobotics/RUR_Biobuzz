@@ -27,7 +27,7 @@ public class NectarLOT extends OpMode {
         double rulerDistance = 0;
 
         double diagonalDistance =0;
-        double hiveHeight = 401.5;
+        double hiveHeight = 40.15;
 
 
         DcMotorEx launcher;

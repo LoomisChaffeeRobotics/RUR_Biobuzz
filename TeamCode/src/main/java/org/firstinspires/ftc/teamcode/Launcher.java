@@ -12,9 +12,10 @@ public class Launcher {
     //Class calculates the target speed of turret and sets turret to correct power.
 
     HardwareMap hardwareMap;
-//    DcMotorEx pollen_launcher;
-    DcMotorEx nectar_launcher;
-    CRServo nectar_servo;
+    DcMotorEx pollen_launcher;
+//    DcMotorEx nectar_launcher;
+    CRServo pollen_servo;
+//    CRServo nectar_servo;
 
     public double[] pollen_distance_list = {};
     public double[] nectar_distance_list = {30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70, 72, 74};
@@ -28,9 +29,10 @@ public class Launcher {
     public double lastVelocity = 0;
 
     public void init(HardwareMap hardwareMap) {
-//        pollen_launcher = hardwareMap.get(DcMotorEx.class, "pollen_launcher");
-        nectar_launcher = hardwareMap.get(DcMotorEx.class, "nectar_launcher");
-        nectar_servo = hardwareMap.get(CRServo.class, "nectar_servo");
+        pollen_launcher = hardwareMap.get(DcMotorEx.class, "pollen_launcher");
+//        nectar_launcher = hardwareMap.get(DcMotorEx.class, "nectar_launcher");
+        pollen_servo = hardwareMap.get(CRServo.class, "pollen_servo");
+//        nectar_servo = hardwareMap.get(CRServo.class, "nectar_servo");
     }
 
     int[] getBoundingIndexes(double[] list, double targetValue) {
@@ -124,11 +126,12 @@ public class Launcher {
         // N/A
 
         if (launcherID == 1) {
-//            pollen_launcher.setVelocity(toggle ? result[0] : 0);
+            pollen_launcher.setVelocity(toggle ? result[0] : 0);
+            pollen_servo.setPower(1);
         }
         else  {
-            nectar_launcher.setVelocity(toggle ? result[0] : 0);
-            nectar_servo.setPower(1);
+//            nectar_launcher.setVelocity(toggle ? result[0] : 0);
+//            nectar_servo.setPower(1);
         }
         lastVelocity = toggle ? result[0] : 0;
 
