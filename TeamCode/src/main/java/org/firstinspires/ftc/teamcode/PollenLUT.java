@@ -1,13 +1,17 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+
 @TeleOp
 public class PollenLUT extends OpMode {
-
+    FtcDashboard dash = FtcDashboard.getInstance();
+    Telemetry telemetry2 = dash.getTelemetry();
     Intake intake;
     Drive drive;
     Launcher launcherClass;
@@ -85,8 +89,9 @@ public class PollenLUT extends OpMode {
 
         telemetry.addData("targetVelocity", velocityNumber);
         telemetry.addData("realVelocity", launcher.getVelocity());
-
         telemetry.update();
+
+
 
 
     }

@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.CRServoImplEx;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -7,7 +8,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-
+@Config
 public class Launcher {
     //Class calculates the target speed of turret and sets turret to correct power.
 
@@ -17,11 +18,11 @@ public class Launcher {
     CRServo pollen_servo;
 //    CRServo nectar_servo;
 
-    public double[] pollen_distance_list = {};
+    public double[] pollen_distance_list = {30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70, 72, 74};
     public double[] nectar_distance_list = {30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70, 72, 74};
-    public double[] pollen_power_list = {};
-    public double[] nectar_power_list = {1372, 1352, 1352, 1356, 1344, 14400, 1384, 1380, 1396, 1416, 1520, 1508, 1496, 1504, 1536, 1596, 1624, 1672, 1708, 1716, 1728, 1736, 1744};
-    public static PIDFCoefficients nectarLauncherPIDF = new PIDFCoefficients(0.1, 0, 0, 0);
+    public double[] pollen_power_list = {1264, 1320, 1348, 1308, 1328, 1312, 1292, 1320, 1340, 1340, 1344, 1348, 1348, 1348, 1368, 1400, 1412, 1420, 1428, 1456, 1464, 1472, 1468};
+    public double[] nectar_power_list = {1372, 1352, 1352, 1356, 1344, 1400, 1384, 1380, 1396, 1416, 1520, 1508, 1496, 1504, 1536, 1596, 1624, 1672, 1708, 1716, 1728, 1736, 1744};
+
     public static PIDFCoefficients pollenLauncherPIDF = new PIDFCoefficients(0.1, 0, 0, 0);
     public double globalDelta = 2;
     public double globalEpsilon = 40;
@@ -81,7 +82,7 @@ public class Launcher {
         double targetRPM =
                 ((targetDistance - distanceList[powerBounds[0]]) * // this is just the change in x from point A to point B
                         ((powerList[powerBounds[1]] - powerList[powerBounds[0]])/deltaDistance))  // this is the slope of the line
-                        + powerList[0]; // this is the y intercept
+                        + powerList[powerBounds[0]]; // this is the y intercept
 
         //target distance = current distance
         //powerBounds[0] = lower bound index for velocity speed
@@ -126,14 +127,14 @@ public class Launcher {
         // N/A
 
         if (launcherID == 1) {
-            pollen_launcher.setVelocity(toggle ? result[0] : 0);
-            pollen_servo.setPower(1);
+            pollen_launcher.setVelocity(toggle ? -result[0] : 0);
+            pollen_servo.setPower(-1);
         }
         else  {
-//            nectar_launcher.setVelocity(toggle ? result[0] : 0);
-//            nectar_servo.setPower(1);
+//            nectar_launcher.setVelocity(toggle ? -result[0] : 0);
+//            nectar_servo.setPower(-1);
         }
-        lastVelocity = toggle ? result[0] : 0;
+        lastVelocity = toggle ? -result[0] : 0;
 
     }
 
