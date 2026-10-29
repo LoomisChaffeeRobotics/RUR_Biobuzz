@@ -52,7 +52,7 @@ public class ComplexAuto extends OpMode {
                             launcherClass.interpolateLauncherPowerFromTable(1,
                                     launcherClass.pollen_distance_list,
                                     launcherClass.pollen_power_list,
-                                    cameraClass.getDistanceFromAprilTag(),
+                                    cameraClass.getDistanceFromAprilTag(cameraClass.red_cluster_list),
                                     launcherClass.globalDelta),
                             launcherClass.globalEpsilon,
                             true) //set pose to start pose
@@ -74,7 +74,7 @@ public class ComplexAuto extends OpMode {
                             launcherClass.interpolateLauncherPowerFromTable(1,
                                     launcherClass.pollen_distance_list,
                                     launcherClass.pollen_power_list,
-                                    cameraClass.getDistanceFromAprilTag(),
+                                    cameraClass.getDistanceFromAprilTag(cameraClass.red_cluster_list),
                                     launcherClass.globalDelta),
                             launcherClass.globalEpsilon,
                             true) //set pose to start pose
@@ -94,7 +94,7 @@ public class ComplexAuto extends OpMode {
                                 launcherClass.interpolateLauncherPowerFromTable(1,
                                         launcherClass.pollen_distance_list,
                                         launcherClass.pollen_power_list,
-                                        cameraClass.getDistanceFromAprilTag(),
+                                        cameraClass.getDistanceFromAprilTag(cameraClass.red_cluster_list),
                                         launcherClass.globalDelta),
                                 launcherClass.globalEpsilon,
                                 true) //set pose to start pose

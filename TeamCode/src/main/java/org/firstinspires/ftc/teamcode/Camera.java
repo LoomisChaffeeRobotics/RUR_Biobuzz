@@ -22,9 +22,14 @@ public class Camera {
     public Limelight3A limelight;
     Odometry odometry;
     HardwareMap hardwareMap;
-    public double camera_height = 0;
+    public double camera_height = 15.5;
     public double target_height = 40.5;
+
+    public double camera_mounted_angle = 30;
     public double height_from_apriltag = target_height - camera_height;
+
+    public int[] red_cluster_list = {30, 31, 32, 33, 34, 35, 36, 37};
+    public int[] blue_cluster_list = {38, 39, 40, 41, 42, 43, 44, 45};
 
     public void init(HardwareMap hardwareMap, double[] odometryParameters) {
         limelight = hardwareMap.get(Limelight3A.class, "limelight");
@@ -34,26 +39,32 @@ public class Camera {
         odometry.init(hardwareMap, odometryParameters);
     }
 
-    public double getDistanceFromAprilTag() {
-        double camera_mounted_angle = 0;
-        double camera_height = 0;
-        double target_height = 40.5;
-        double angleToGoalDegrees = camera_mounted_angle;
-        double angleToGoalRadians = Math.toRadians(angleToGoalDegrees);
-        double distance_from_apriltag = (target_height - camera_height) / Math.sin(angleToGoalRadians);
+    public double getDistanceFromAprilTag(int[] cluster_list) {
+//        double angleToGoalDegrees = camera_mounted_angle;
+//        double angleToGoalRadians = Math.toRadians(angleToGoalDegrees);
+//        double distance_from_apriltag = (target_height - camera_height) / Math.sin(angleToGoalRadians);
+
+        double[] pos = getAprilTagPosition(cluster_list);
+
+        double distance_from_apriltag = Math.sqrt((pos[0] * pos[0]) + (pos[1] * pos[1]) + (pos[2] * pos[2]));
 
         return distance_from_apriltag;
     }
 
-    public double[] getAprilTagPosition(int aprilTagID) {
+    public double[] getAprilTagPosition(int[] cluster_list) {
         LLResult result = limelight.getLatestResult();
         if (result == null || !result.isValid()) return null;
 
         for (LLResultTypes.FiducialResult fr : result.getFiducialResults()) {
-            if (fr.getFiducialId() == aprilTagID) {
-                // is it relative to robot or for the entire space??????
-                Position p = fr.getTargetPoseCameraSpace().getPosition().toUnit(DistanceUnit.METER);
-                return new double[]{p.x, p.y, p.z};
+
+            for (int id : cluster_list) {
+
+                if (fr.getFiducialId() == id) {
+                    // is it relative to robot or for the entire space??????
+                    Position p = fr.getTargetPoseCameraSpace().getPosition().toUnit(DistanceUnit.METER);
+                    return new double[]{p.x, p.y, p.z};
+                }
+
             }
         }
         return null;

@@ -24,7 +24,9 @@ public class TurretVelocityRealignment {
 
     double[] getAdjustedShootingInfo(int aprilTagID, int heightDisplacement) {
 
-        double[] aprilTagPosition = cameraClass.getAprilTagPosition(aprilTagID);
+
+        // fix so it can be either red or blue team!!!!!
+        double[] aprilTagPosition = cameraClass.getAprilTagPosition(cameraClass.red_cluster_list);
 
         double[] robotPosition = odometryClass.getRobotPosition();
         double[] robotVelocity = getVelocityDirectionalOffset();

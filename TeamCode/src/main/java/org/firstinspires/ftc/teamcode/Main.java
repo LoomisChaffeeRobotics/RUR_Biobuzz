@@ -16,7 +16,7 @@ public class Main extends OpMode {
     Camera camera;
     Odometry odometry;
 
-    double[] odometryConstants = {0, 0, 0};
+    public double[] odometryConstants = {0, 0, 0};
     double distanceToAprilTag = 0;
     int targetAprilTagID = 1;
 
@@ -47,7 +47,9 @@ public class Main extends OpMode {
     @Override
     public void loop() {
 
-        double projection_distance = Math.sqrt( (camera.getDistanceFromAprilTag() * camera.getDistanceFromAprilTag() ) - (camera.height_from_apriltag * camera.height_from_apriltag) );
+        //make sure to differentiate by color/team!!!!!!
+
+        double projection_distance = Math.sqrt( (camera.getDistanceFromAprilTag(camera.red_cluster_list) * camera.getDistanceFromAprilTag(camera.red_cluster_list) ) - (camera.height_from_apriltag * camera.height_from_apriltag) );
 
         if (gamepad1.a) {launcherClass.toggleLauncher(1,
                 launcherClass.interpolateLauncherPowerFromTable(1,
