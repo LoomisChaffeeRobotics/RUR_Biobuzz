@@ -20,7 +20,7 @@ import java.util.Map;
 public class Camera {
     //Class detects April Tags, finds robot's relative position, and determines which hive to shoot at. (team/tilt direction)
     public Limelight3A limelight;
-    Odometry odometry;
+//    Odometry odometry;
     HardwareMap hardwareMap;
     public double camera_height = 15.5;
     public double target_height = 40.5;
@@ -35,8 +35,8 @@ public class Camera {
         limelight = hardwareMap.get(Limelight3A.class, "limelight");
         limelight.pipelineSwitch(0);
         limelight.start();
-        odometry = new Odometry();
-        odometry.init(hardwareMap, odometryParameters);
+//        odometry = new Odometry();
+//        odometry.init(hardwareMap, odometryParameters);
     }
 
     public double getDistanceFromAprilTag(int[] cluster_list) {
@@ -53,7 +53,7 @@ public class Camera {
 
     public double[] getAprilTagPosition(int[] cluster_list) {
         LLResult result = limelight.getLatestResult();
-        if (result == null || !result.isValid()) return null;
+        if (result == null || !result.isValid()) return new double[]{0, 0, 0};
 
         for (LLResultTypes.FiducialResult fr : result.getFiducialResults()) {
 
@@ -61,13 +61,13 @@ public class Camera {
 
                 if (fr.getFiducialId() == id) {
                     // is it relative to robot or for the entire space??????
-                    Position p = fr.getTargetPoseCameraSpace().getPosition().toUnit(DistanceUnit.METER);
+                    Position p = fr.getTargetPoseCameraSpace().getPosition().toUnit(DistanceUnit.INCH);
                     return new double[]{p.x, p.y, p.z};
                 }
 
             }
         }
-        return null;
+        return new double[]{0, 0, 0};
     }
 }
 

@@ -46,12 +46,14 @@ public class PollenCameraLauncherTest extends OpMode {
         //launcher handling
         // pollen launcher
 
+
+        double projection_distance = Math.sqrt( (cameraClass.getDistanceFromAprilTag(cameraClass.red_cluster_list) * cameraClass.getDistanceFromAprilTag(cameraClass.red_cluster_list) ) - (cameraClass.height_from_apriltag * cameraClass.height_from_apriltag) );
         //pollen launcher
         launcherClass.toggleLauncher(1,
                 launcherClass.interpolateLauncherPowerFromTable(1,
                         launcherClass.pollen_distance_list,
                         launcherClass.pollen_power_list,
-                        cameraClass.getDistanceFromAprilTag(cameraClass.red_cluster_list),
+                        projection_distance,
                         launcherClass.globalDelta),
                 launcherClass.globalEpsilon,
                 b1Pressed);
@@ -59,7 +61,7 @@ public class PollenCameraLauncherTest extends OpMode {
         result = launcherClass.interpolateLauncherPowerFromTable(1,
                 launcherClass.pollen_distance_list,
                 launcherClass.pollen_power_list,
-                cameraClass.getDistanceFromAprilTag(cameraClass.red_cluster_list),
+                projection_distance,
                 launcherClass.globalDelta);
 
 
@@ -75,7 +77,8 @@ public class PollenCameraLauncherTest extends OpMode {
 
         telemetry.addData("targetVelocity", result[0]);
         telemetry.addData("realvelocity", launcherClass.pollen_launcher.getVelocity());
-        telemetry.addData("distance", distance);
+        telemetry.addData("distance", projection_distance);
+        telemetry.addData("given distance", cameraClass.getDistanceFromAprilTag(cameraClass.red_cluster_list));
         telemetry.addData("power_1", result[1]);
         telemetry.addData("power_2", result[2]);
 
