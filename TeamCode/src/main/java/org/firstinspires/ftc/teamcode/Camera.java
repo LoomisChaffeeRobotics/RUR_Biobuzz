@@ -23,13 +23,15 @@ public class Camera {
 //    Odometry odometry;
     HardwareMap hardwareMap;
     public double camera_height = 15.5;
-    public double target_height = 40.5;
+    public double target_height = 48;
 
     public double camera_mounted_angle = 30;
     public double height_from_apriltag = target_height - camera_height;
 
     public int[] red_cluster_list = {30, 31, 32, 33, 34, 35, 36, 37};
     public int[] blue_cluster_list = {38, 39, 40, 41, 42, 43, 44, 45};
+
+    public double[] lastPos = new double[] {0, 0, 0};
 
     public void init(HardwareMap hardwareMap, double[] odometryParameters) {
         limelight = hardwareMap.get(Limelight3A.class, "limelight");
@@ -45,6 +47,15 @@ public class Camera {
 //        double distance_from_apriltag = (target_height - camera_height) / Math.sin(angleToGoalRadians);
 
         double[] pos = getAprilTagPosition(cluster_list);
+
+
+        if (Double.isNaN((pos[0] * pos[0]) + (pos[1] * pos[1]) + (pos[2] * pos[2])) || ((pos[0] * pos[0]) + (pos[1] * pos[1]) + (pos[2] * pos[2])) == 0) {
+            pos = lastPos;
+            return Math.sqrt((pos[0] * pos[0]) + (pos[1] * pos[1]) + (pos[2] * pos[2]));
+        }
+        else {
+            lastPos = pos;
+        }
 
         double distance_from_apriltag = Math.sqrt((pos[0] * pos[0]) + (pos[1] * pos[1]) + (pos[2] * pos[2]));
 

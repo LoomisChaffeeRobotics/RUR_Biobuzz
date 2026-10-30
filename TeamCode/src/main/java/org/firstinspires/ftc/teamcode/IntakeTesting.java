@@ -28,9 +28,9 @@ public class IntakeTesting extends OpMode {
         driveClass.driveUpdateFromGamepadInput(gamepad1.left_stick_x, -gamepad1.left_stick_y, gamepad1.right_stick_x, (float) odometry.getRobotAngle());
         //intake: -1 power is forward, 1 power is backward.
         if (gamepad1.a) {
-            intakeClass.intakeMotor.setPower(0.67);
+            intakeClass.intakeMotor.setPower(1);
         } else if (gamepad1.y) {
-            intakeClass.intakeMotor.setPower(-0.67);
+            intakeClass.intakeMotor.setPower(-1);
         } else {
             intakeClass.intakeMotor.setPower(0);
         }

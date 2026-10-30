@@ -79,6 +79,9 @@ public class PollenCameraLauncherTest extends OpMode {
         telemetry.addData("realvelocity", launcherClass.pollen_launcher.getVelocity());
         telemetry.addData("distance", projection_distance);
         telemetry.addData("given distance", cameraClass.getDistanceFromAprilTag(cameraClass.red_cluster_list));
+        telemetry.addData("cool position relative yay yippee x", cameraClass.getAprilTagPosition(cameraClass.red_cluster_list)[0]);
+        telemetry.addData("cool position relative yay yippee y", cameraClass.getAprilTagPosition(cameraClass.red_cluster_list)[1]);
+        telemetry.addData("cool position relative yay yippee z", cameraClass.getAprilTagPosition(cameraClass.red_cluster_list)[2]);
         telemetry.addData("power_1", result[1]);
         telemetry.addData("power_2", result[2]);
 
