@@ -29,24 +29,16 @@ public class PIDLauncherTest extends OpMode {
     @Override
     public void loop() {
         launcherClass.pollen_launcher.setPIDFCoefficients(DcMotorEx.RunMode.RUN_USING_ENCODER, Launcher.pollenLauncherPIDF);
-        launcherClass.toggleLauncher(1,
-                launcherClass.interpolateLauncherPowerFromTable(2,
-                        launcherClass.nectar_distance_list,
-                        launcherClass.nectar_power_list,
-                        targetDistance,
-                        launcherClass.globalDelta),
-                launcherClass.globalEpsilon,
-                x1Pressed);
+
 
         if (x1Pressed) {
-            velocityNumber = launcherClass.interpolateLauncherPowerFromTable(2,
-                    launcherClass.nectar_distance_list,
-                    launcherClass.nectar_power_list,
-                    targetDistance,
-                    launcherClass.globalDelta)[0];
+            velocityNumber = 1300;
         } else {
             velocityNumber = 0;
         }
+
+        launcherClass.pollen_launcher.setVelocity(velocityNumber);
+
 
         if (gamepad1.xWasPressed()) {
             x1Pressed = !x1Pressed;
