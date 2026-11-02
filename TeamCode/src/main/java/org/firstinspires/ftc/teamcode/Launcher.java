@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.CRServoImplEx;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
@@ -22,8 +23,11 @@ public class Launcher {
     public double[] nectar_distance_list = {30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70, 72, 74};
     public double[] pollen_power_list = {1264, 1320, 1348, 1308, 1328, 1312, 1292, 1320, 1340, 1340, 1344, 1348, 1348, 1348, 1368, 1400, 1412, 1420, 1428, 1456, 1464, 1472, 1468};
     public double[] nectar_power_list = {1372, 1352, 1352, 1356, 1344, 1400, 1384, 1380, 1396, 1416, 1520, 1508, 1496, 1504, 1536, 1596, 1624, 1672, 1708, 1716, 1728, 1736, 1744};
-
-    public static PIDFCoefficients pollenLauncherPIDF = new PIDFCoefficients(0.1, 0, 0, 0);
+    public static double p;
+    public static double i;
+    public static double d;
+    public static double f;
+    public PIDFCoefficients pollenLauncherPIDF = new PIDFCoefficients(p, i, d, f);
     public double globalDelta = 2;
     public double globalEpsilon = 40;
 
@@ -31,6 +35,7 @@ public class Launcher {
 
     public void init(HardwareMap hardwareMap) {
         pollen_launcher = hardwareMap.get(DcMotorEx.class, "pollen_launcher");
+        pollen_launcher.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 //        nectar_launcher = hardwareMap.get(DcMotorEx.class, "nectar_launcher");
         pollen_servo = hardwareMap.get(CRServo.class, "pollen_servo");
 //        nectar_servo = hardwareMap.get(CRServo.class, "nectar_servo");
