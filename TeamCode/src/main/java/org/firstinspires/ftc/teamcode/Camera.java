@@ -31,6 +31,12 @@ public class Camera {
     public int[] red_cluster_list = {30, 31, 32, 33, 34, 35, 36, 37};
     public int[] blue_cluster_list = {38, 39, 40, 41, 42, 43, 44, 45};
 
+
+    public int[] red_audience_list = {30, 31, 32, 33};
+    public int[] red_back_list = {34, 35, 36, 37};
+    public int[] blue_audience_list = {38, 39, 40, 41};
+    public int[] blue_back_list = {42, 43, 44, 45};
+
     public double[] lastPos = new double[] {0, 0, 0};
 
     public void init(HardwareMap hardwareMap, double[] odometryParameters) {

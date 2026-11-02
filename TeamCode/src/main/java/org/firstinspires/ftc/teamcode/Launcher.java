@@ -14,7 +14,7 @@ public class Launcher {
 
     HardwareMap hardwareMap;
     DcMotorEx pollen_launcher;
-//    DcMotorEx nectar_launcher;
+    DcMotorEx nectar_launcher;
     CRServo pollen_servo;
 //    CRServo nectar_servo;
 
@@ -96,23 +96,23 @@ public class Launcher {
         return new double[] {targetRPM, powerBounds[0], powerBounds[1]};
     }
 
-//    public boolean isLauncherPowered(int launcherID, double targetRPM, double epsilon) {
-//
-//        // FUNCTIONALITY:
-//        // launcherID -> is NECTAR launcher vs. POLLEN launcher
-//            // launcherID = 1 -> POLLEN
-//            // launcherID = 2 -> NECTAR
-//        // needs to know if a specific launcher RPM is within epsilon of the targetRPM
-//
-//        // CLASS INTERACTIONS:
-//        // N/A
-//
-////        double launcherVelocity = launcherID == 1 ? pollen_launcher.getVelocity() : nectar_launcher.getVelocity();
-//
-////        double rpm = launcherVelocity / 6.0;
-//
-////        return Math.abs(rpm - targetRPM) <= epsilon;
-//    }
+    public boolean isLauncherPowered(int launcherID, double targetRPM, double epsilon) {
+
+        // FUNCTIONALITY:
+        // launcherID -> is NECTAR launcher vs. POLLEN launcher
+            // launcherID = 1 -> POLLEN
+            // launcherID = 2 -> NECTAR
+        // needs to know if a specific launcher RPM is within epsilon of the targetRPM
+
+        // CLASS INTERACTIONS:
+        // N/A
+
+        double launcherVelocity = launcherID == 1 ? pollen_launcher.getVelocity() : nectar_launcher.getVelocity();
+
+        double rpm = launcherVelocity / 6.0;
+
+        return Math.abs(rpm - targetRPM) <= epsilon;
+    }
 
     public void toggleLauncher(int launcherID, double[] result, double epsilon, boolean toggle) {
         // FUNCTIONALITY:
