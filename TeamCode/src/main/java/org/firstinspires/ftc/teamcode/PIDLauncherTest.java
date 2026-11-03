@@ -41,14 +41,13 @@ public class PIDLauncherTest extends OpMode {
         } else {
             velocityNumber = 0;
         }
-
        pollen_launcher.setVelocity(velocityNumber);
 
 
         if (gamepad1.xWasPressed()) {
             x1Pressed = !x1Pressed;
         }
-
+        telemetry2.addData("pidf cooeficients", pollen_launcher.getPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER));
         telemetry2.addData("Target Velocity", velocityNumber);
         telemetry2.addData("Real Velocity", pollen_launcher.getVelocity());
         telemetry2.update();
