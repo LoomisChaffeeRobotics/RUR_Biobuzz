@@ -13,10 +13,14 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 @TeleOp
 @Config
 public class PIDLauncherTest extends OpMode {
-    public static double p = 20;
-    public static double i = 1;
-    public static double d = 0.5;
-    public static double f = 0.5;
+    public static volatile double p = 20;
+    public static volatile double i = 1;
+    public static volatile double d = 0.5;
+    public static volatile double f = 0.5;
+    public double appliedP = Double.NaN;
+    public double appliedI = Double.NaN;
+    public double appliedD = Double.NaN;
+    public double appliedF = Double.NaN;
 
     //this class can be used for either nectar or pollen launcher, just change the first parameter of toggleLauncher to 1 for pollen and 2 for nectar.
     FtcDashboard dashboard = FtcDashboard.getInstance();
@@ -28,12 +32,15 @@ public class PIDLauncherTest extends OpMode {
     @Override
     public void init() {
         pollen_launcher = hardwareMap.get(DcMotorEx.class, "pollen_launcher");
-        pollen_launcher.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        pollen_launcher.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        updatePidfCoefficients();
     }
 
     @Override
     public void loop() {
-        pollen_launcher.setPIDFCoefficients(DcMotorEx.RunMode.RUN_USING_ENCODER, new PIDFCoefficients(p, i, d, f));
+
+        updatePidfCoefficients();
+
 
 
         if (x1Pressed) {
@@ -47,9 +54,24 @@ public class PIDLauncherTest extends OpMode {
         if (gamepad1.xWasPressed()) {
             x1Pressed = !x1Pressed;
         }
-        telemetry2.addData("pidf cooeficients", pollen_launcher.getPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER));
+
+        telemetry2.addData("pidf cooeficients", pollen_launcher.getPIDFCoefficients(DcMotorEx.RunMode.RUN_USING_ENCODER));
         telemetry2.addData("Target Velocity", velocityNumber);
         telemetry2.addData("Real Velocity", pollen_launcher.getVelocity());
         telemetry2.update();
+    }
+    public void updatePidfCoefficients() {
+        if (Double.compare(p, appliedP) == 0
+                && Double.compare(i, appliedI) == 0
+                && Double.compare(d, appliedD) == 0
+                && Double.compare(f, appliedF) == 0) {
+            return;
+        }
+
+        pollen_launcher.setVelocityPIDFCoefficients(p, i, d, f);
+        appliedP = p;
+        appliedI = i;
+        appliedD = d;
+        appliedF = f;
     }
 }
