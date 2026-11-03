@@ -3,15 +3,26 @@ package org.firstinspires.ftc.teamcode.ScrimmageAutos;
 import com.pedropathing.api.Paths;
 import com.pedropathing.ivy.Command;
 import com.pedropathing.ivy.Scheduler;
+import com.pedropathing.ivy.commands.Commands;
 import com.pedropathing.paths.interpolator.Interpolator;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.pedropathing.follower.Follower;
+
+import org.firstinspires.ftc.teamcode.Intake;
+import org.firstinspires.ftc.teamcode.Launcher;
+import org.firstinspires.ftc.teamcode.Camera;
 import org.firstinspires.ftc.teamcode.pedro.Constants;
 import com.pedropathing.api.PoseFactory;
 import com.pedropathing.math.Pose;
 import com.pedropathing.paths.Path;
 import static com.pedropathing.ivy.Scheduler.schedule;
+import static com.pedropathing.ivy.commands.Commands.infinite;
+import static com.pedropathing.ivy.commands.Commands.instant;
+import static com.pedropathing.ivy.commands.Commands.waitMs;
+import static com.pedropathing.ivy.commands.Commands.waitUntil;
+import static com.pedropathing.ivy.groups.Groups.deadline;
+import static com.pedropathing.ivy.groups.Groups.parallel;
 import static com.pedropathing.ivy.groups.Groups.sequential;
 import static com.pedropathing.ivy.pedro.PedroCommands.follow;
 
@@ -79,20 +90,82 @@ public class RedScrimmageFirstTipAuto extends OpMode {
     }
 
 
+    Intake intake;
+    Launcher launcherClass;
+    Camera cameraClass;
+
+    public double[] odometryConstants = {0, 0, 0};
+
+    private double[] pollenTurretPower = launcherClass.interpolateLauncherPowerFromTable(1,
+        launcherClass.pollen_distance_list,
+        launcherClass.pollen_power_list,
+        52,
+        launcherClass.globalDelta);
+
+    private double pollenTargetRPM = pollenTurretPower[0];
+
+
+    //Commands
+    Command spinUpPollen = Command.build()
+            .setExecute(() -> {
+                launcherClass.toggleLauncher(1, pollenTurretPower, launcherClass.globalEpsilon, true);
+            })
+            .setDone(() -> {
+                return(launcherClass.isLauncherPowered(1, pollenTargetRPM, launcherClass.globalEpsilon));
+            });
+
+    Command shootPollen = sequential(
+            instant(() -> launcherClass.feedLauncher(pollenTargetRPM, launcherClass.globalEpsilon, true)),
+            Commands.waitMs(1000),
+            instant(() -> launcherClass.feedLauncher(pollenTargetRPM, launcherClass.globalEpsilon, false))
+    );
+
+    Command stopPollen = instant(() -> launcherClass.toggleLauncher(1, pollenTurretPower, launcherClass.globalEpsilon, false));
+
+    Command runIntake = instant(() -> intake.toggleIntake(true));
+    Command stopIntake = instant(() -> intake.toggleIntake(false));
+
+    Command waitForHive = waitUntil(() -> cameraClass.getDistanceFromAprilTag(cameraClass.red_audience_list) > 100); // change to hive distance when up +- some error
+
+    Command stopAll = parallel(
+            stopIntake,
+            stopPollen,
+            instant(() -> launcherClass.feedLauncher(pollenTargetRPM, launcherClass.globalEpsilon, false))
+    );
+
+
 
     private Command autoRoutine() {
         return sequential(
-                //Shoot preloaded
-                //Turn on Intake
-                follow(follower, toGarden()),
-                //Turn off Intake
-                follow(follower, toShoot()),
-                //Check hive position with camera
-                //Wait until hive is ready or until 5 seconds of auto remain
+                deadline(
+                        waitMs(25000),
+                        //Inside is run until 5 seconds of auto remain
+
+                        spinUpPollen,
+                        shootPollen,
+                        stopPollen,
+                        //Shoot preloaded
+
+                        runIntake,
+                        follow(follower, toGarden()),
+                        stopIntake,
+
+
+                        follow(follower, toShoot()),
+
+                        waitForHive,
+
+                        spinUpPollen,
+                        shootPollen,
+                        stopPollen
+
+                ),
+
+                stopAll,
                 follow(follower, park())
+
         );
     }
-
 
 
     @Override
@@ -101,6 +174,13 @@ public class RedScrimmageFirstTipAuto extends OpMode {
         follower = Constants.create(hardwareMap);
         follower.setPose(start);
         follower.update();
+
+        intake = new Intake();
+        intake.init(hardwareMap);
+        launcherClass = new Launcher();
+        launcherClass.init(hardwareMap);
+        cameraClass = new Camera();
+        cameraClass.init(hardwareMap, odometryConstants);
 
     }
 

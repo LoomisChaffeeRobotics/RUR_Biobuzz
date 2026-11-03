@@ -4,14 +4,23 @@ import com.pedropathing.api.Paths;
 import com.pedropathing.ivy.Command;
 import com.pedropathing.ivy.Scheduler;
 import com.pedropathing.paths.interpolator.Interpolator;
+import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.pedropathing.follower.Follower;
+
+import org.firstinspires.ftc.teamcode.Camera;
+import org.firstinspires.ftc.teamcode.Drive;
+import org.firstinspires.ftc.teamcode.Launcher;
 import org.firstinspires.ftc.teamcode.pedro.Constants;
 import com.pedropathing.api.PoseFactory;
 import com.pedropathing.math.Pose;
 import com.pedropathing.paths.Path;
 import static com.pedropathing.ivy.Scheduler.schedule;
+import static com.pedropathing.ivy.commands.Commands.instant;
+import static com.pedropathing.ivy.commands.Commands.waitMs;
+import static com.pedropathing.ivy.commands.Commands.waitUntil;
+import static com.pedropathing.ivy.groups.Groups.parallel;
 import static com.pedropathing.ivy.groups.Groups.sequential;
 import static com.pedropathing.ivy.pedro.PedroCommands.follow;
 
@@ -37,9 +46,18 @@ import static com.pedropathing.ivy.pedro.PedroCommands.follow;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 @Autonomous
 public class RedScrimmageSecondTipAuto extends OpMode {
+
+    Launcher launcher;
+    Drive drive;
+
+    Camera camera;
+
+    Limelight3A limelight;
 
     private Follower follower;
     private final PoseFactory poseFactory = PoseFactory.degrees();
@@ -59,10 +77,41 @@ public class RedScrimmageSecondTipAuto extends OpMode {
     public Path park() {
         return Paths.line(parkStart, park).linear(parkStart, park);
     }
+    double[] turretPower = launcher.interpolateLauncherPowerFromTable(
+            1,
+            launcher.pollen_distance_list,
+            launcher.pollen_power_list,
+            52,
+            launcher.globalDelta
+    );
 
+    double RPM = turretPower[0];
+    Command spinupwheel = Command.build()
+            .setExecute(() -> {
+                launcher.toggleLauncher(
+                        1, turretPower,
+                        launcher.globalEpsilon,
+                        true);
+            })
+
+            .setDone(() -> {
+                return(launcher.isLauncherPowered(1, RPM, launcher.globalEpsilon));
+            });
+
+    Command shoot = sequential(
+            instant(()->launcher.feedLauncher(RPM,launcher.globalEpsilon,true)),
+            waitMs(10000),
+            instant(()->launcher.feedLauncher(RPM,launcher.globalEpsilon,false))
+    );
     private Command autoRoutine() {
+
         return sequential(
-                //Wait until hive tips or until 5 seconds of auto remain
+            spinupwheel,
+                waitUntil(() -> //wait based on limelight
+                        camera.getDistanceFromAprilTag(camera.red_cluster_list)
+                                >= 48
+                ),
+                shoot,
                 follow(follower, leave()),
                 follow(follower, park())
         );
