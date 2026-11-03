@@ -22,6 +22,7 @@ public class Main extends OpMode {
 
     boolean a2Pressed = false;
     boolean b2Pressed = false;
+    boolean x2Pressed = false;
 
     @Override
     public void init() {
@@ -51,14 +52,15 @@ public class Main extends OpMode {
 
         double projection_distance = Math.sqrt( (camera.getDistanceFromAprilTag(camera.red_cluster_list) * camera.getDistanceFromAprilTag(camera.red_cluster_list) ) - (camera.height_from_apriltag * camera.height_from_apriltag) );
 
-        if (gamepad1.a) {launcherClass.toggleLauncher(1,
-                launcherClass.interpolateLauncherPowerFromTable(1,
-                        launcherClass.pollen_distance_list,
-                        launcherClass.pollen_power_list,
-                        projection_distance,
-                        launcherClass.globalDelta),
-                launcherClass.globalEpsilon,
-                a2Pressed);
+        if (gamepad1.a) {
+//            launcherClass.toggleLauncher(1,
+//                launcherClass.interpolateLauncherPowerFromTable(1,
+//                        launcherClass.pollen_distance_list,
+//                        launcherClass.pollen_power_list,
+//                        projection_distance,
+//                        launcherClass.globalDelta),
+//                launcherClass.globalEpsilon,
+//                a2Pressed);
             intake.toggleIntake(true);
         } else {
             intake.toggleIntake(false);
@@ -94,6 +96,9 @@ public class Main extends OpMode {
         }
         if (gamepad2.bWasPressed()) {
             b2Pressed = !b2Pressed;
+        }
+        if (gamepad2.x) {
+            drive.turnToHive(1, odometry.getRobotAngle());
         }
 
 

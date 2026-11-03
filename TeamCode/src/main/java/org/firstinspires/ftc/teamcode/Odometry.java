@@ -26,8 +26,8 @@ public class Odometry {
         //Configure the odometry sensor as "pinpoint".
 
         //Tracking Point at Center of Robot.
-        double xOffset = 0;
-        double yOffset = -2.5;
+        double xOffset = -4;
+        double yOffset = 6.5;
         //xOffset = Sensor tracking forward/backword movement's distance in inches to the left from the center.
         //yOffset = Sensor tracking left/right movement's distance in inches to the front from the center.
 
