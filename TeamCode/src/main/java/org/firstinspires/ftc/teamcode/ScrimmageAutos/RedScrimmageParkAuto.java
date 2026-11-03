@@ -31,9 +31,6 @@ import static com.pedropathing.ivy.pedro.PedroCommands.follow;
 // Red vs. Blue:
 // No difference by alliance
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-
 @Autonomous
 public class RedScrimmageParkAuto extends OpMode {
 

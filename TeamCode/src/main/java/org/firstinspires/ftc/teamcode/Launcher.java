@@ -16,6 +16,7 @@ public class Launcher {
     HardwareMap hardwareMap;
     DcMotorEx pollen_launcher;
     DcMotorEx nectar_launcher;
+    DcMotorEx turret_feeder;
     CRServo pollen_servo;
 //    CRServo nectar_servo;
 
@@ -39,6 +40,7 @@ public class Launcher {
 //        nectar_launcher = hardwareMap.get(DcMotorEx.class, "nectar_launcher");
         pollen_servo = hardwareMap.get(CRServo.class, "pollen_servo");
 //        nectar_servo = hardwareMap.get(CRServo.class, "nectar_servo");
+        turret_feeder = hardwareMap.get(DcMotorEx.class, "turret_feeder");
     }
 
     int[] getBoundingIndexes(double[] list, double targetValue) {
@@ -140,6 +142,23 @@ public class Launcher {
 //            nectar_servo.setPower(-1);
         }
         lastVelocity = toggle ? -result[0] : 0;
+
+    }
+
+    public void feedLauncher(double targetRPM, double epsilon, boolean toggle) {
+
+        // FUNCTIONALITY:
+        // feeds game pieces into turrets
+        // only works if at least 1 turret is up to speed
+
+        // CLASS INTERACTIONS:
+        // N/A
+
+        if(isLauncherPowered(1, targetRPM, epsilon) || isLauncherPowered(2, targetRPM, epsilon)) {
+            turret_feeder.setVelocity(toggle ? 1 : 0);
+        } else {
+            turret_feeder.setVelocity(0);
+        }
 
     }
 
