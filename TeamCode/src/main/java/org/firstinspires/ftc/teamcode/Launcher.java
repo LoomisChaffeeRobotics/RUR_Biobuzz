@@ -18,7 +18,7 @@ public class Launcher {
     DcMotorEx nectar_launcher;
     DcMotorEx turret_feeder;
     CRServo pollen_servo;
-//    CRServo nectar_servo;
+    CRServo nectar_servo;
 
     public double[] pollen_distance_list = {30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70, 72, 74};
     public double[] nectar_distance_list = {30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70, 72, 74};
@@ -28,7 +28,15 @@ public class Launcher {
     public double pollenI = 5.1;
     public double pollenD = 17;
     public double pollenF = -2.9;
+
+    public double nectarP = 83;
+    public double nectarI = 5.1;
+    public double nectarD = 21;
+    public double nectarF = -3.1;
+
+
     public PIDFCoefficients pollenLauncherPIDF = new PIDFCoefficients(pollenP, pollenI, pollenD, pollenF);
+    public PIDFCoefficients nectarLauncherPIDF = new PIDFCoefficients(nectarP,nectarI,nectarD,nectarF);
     public double globalDelta = 2;
     public double globalEpsilon = 40;
 
@@ -37,10 +45,13 @@ public class Launcher {
     public void init(HardwareMap hardwareMap) {
         pollen_launcher = hardwareMap.get(DcMotorEx.class, "pollen_launcher");
         pollen_launcher.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//        nectar_launcher = hardwareMap.get(DcMotorEx.class, "nectar_launcher");
+        nectar_launcher = hardwareMap.get(DcMotorEx.class, "nectar_launcher");
         pollen_servo = hardwareMap.get(CRServo.class, "pollen_servo");
-//        nectar_servo = hardwareMap.get(CRServo.class, "nectar_servo");
+        nectar_servo = hardwareMap.get(CRServo.class, "nectar_servo");
         turret_feeder = hardwareMap.get(DcMotorEx.class, "turret_feeder");
+
+        nectar_launcher.setVelocityPIDFCoefficients(nectarP, nectarI, nectarD, nectarF);
+        pollen_launcher.setVelocityPIDFCoefficients(pollenP, pollenI,pollenD, pollenF);
     }
 
     int[] getBoundingIndexes(double[] list, double targetValue) {
