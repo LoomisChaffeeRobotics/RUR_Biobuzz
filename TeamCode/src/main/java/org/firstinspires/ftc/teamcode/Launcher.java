@@ -42,6 +42,8 @@ public class Launcher {
 
     public double lastVelocity = 0;
 
+    public static double[] targetRPMList = {0, 0};
+
     public void init(HardwareMap hardwareMap) {
         pollen_launcher = hardwareMap.get(DcMotorEx.class, "pollen_launcher");
         pollen_launcher.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -111,6 +113,8 @@ public class Launcher {
         //powerList[powerBounds[1]] = upper bound velocity
         //powerList[0] = lowest velocity in the look up table
 
+        targetRPMList[launcherID - 1] = targetRPM;
+
         return new double[] {targetRPM, powerBounds[0], powerBounds[1]};
     }
 
@@ -156,7 +160,7 @@ public class Launcher {
 
     }
 
-    public void feedLauncher(double targetRPM, double epsilon, boolean toggle) {
+    public void feedLauncher(double[] RPMList, double epsilon, boolean toggle) {
 
         // FUNCTIONALITY:
         // feeds game pieces into turrets
@@ -165,7 +169,7 @@ public class Launcher {
         // CLASS INTERACTIONS:
         // N/A
 
-        if(isLauncherPowered(1, targetRPM, epsilon) || isLauncherPowered(2, targetRPM, epsilon)) {
+        if(isLauncherPowered(1, RPMList[0], epsilon) || isLauncherPowered(2, RPMList[1], epsilon)) {
             turret_feeder.setVelocity(toggle ? 1 : 0);
         } else {
             turret_feeder.setVelocity(0);
