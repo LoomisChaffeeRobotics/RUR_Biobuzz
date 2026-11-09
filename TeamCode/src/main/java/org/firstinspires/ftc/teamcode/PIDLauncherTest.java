@@ -27,12 +27,12 @@ public class PIDLauncherTest extends OpMode {
     Telemetry telemetry2 = dashboard.getTelemetry();
     boolean startPressed = false;
     double velocityNumber = 0;
-    DcMotorEx pollen_launcher;
+    DcMotorEx nectar_launcher;
 
     @Override
     public void init() {
-        pollen_launcher = hardwareMap.get(DcMotorEx.class, "pollen_launcher");
-        pollen_launcher.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        nectar_launcher = hardwareMap.get(DcMotorEx.class, "nectar_launcher");
+        nectar_launcher.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         updatePidfCoefficients();
     }
 
@@ -48,7 +48,7 @@ public class PIDLauncherTest extends OpMode {
         } else {
             velocityNumber = 0;
         }
-       pollen_launcher.setVelocity(velocityNumber);
+       nectar_launcher.setVelocity(velocityNumber);
 
 
         if (gamepad1.startWasPressed()) {
@@ -80,16 +80,16 @@ public class PIDLauncherTest extends OpMode {
             launcherF -= 0.1;
         }
 
-        telemetry2.addData("pidf cooeficients", pollen_launcher.getPIDFCoefficients(DcMotorEx.RunMode.RUN_USING_ENCODER));
+        telemetry2.addData("pidf cooeficients", nectar_launcher.getPIDFCoefficients(DcMotorEx.RunMode.RUN_USING_ENCODER));
         telemetry2.addData("Target Velocity", velocityNumber);
-        telemetry2.addData("Real Velocity", pollen_launcher.getVelocity());
+        telemetry2.addData("Real Velocity", nectar_launcher.getVelocity());
         telemetry2.addData("Motor PIDF",
-                pollen_launcher.getPIDFCoefficients(DcMotorEx.RunMode.RUN_USING_ENCODER));
+                nectar_launcher.getPIDFCoefficients(DcMotorEx.RunMode.RUN_USING_ENCODER));
 
         telemetry2.update();
-        telemetry.addData("pidf cooeficients", pollen_launcher.getPIDFCoefficients(DcMotorEx.RunMode.RUN_USING_ENCODER));
+        telemetry.addData("pidf cooeficients", nectar_launcher.getPIDFCoefficients(DcMotorEx.RunMode.RUN_USING_ENCODER));
         telemetry.addData("Target Velocity", velocityNumber);
-        telemetry.addData("Real Velocity", pollen_launcher.getVelocity());
+        telemetry.addData("Real Velocity", nectar_launcher.getVelocity());
 
         telemetry.addData("PIDLauncherTest p", launcherP);
         telemetry.addData("PIDLauncherTest i", launcherI);
@@ -98,7 +98,7 @@ public class PIDLauncherTest extends OpMode {
         telemetry.addData("Applied PIDF", "%.4f, %.4f, %.4f, %.4f",
                 appliedP, appliedI, appliedD, appliedF);
         telemetry.addData("Motor PIDF",
-                pollen_launcher.getPIDFCoefficients(DcMotorEx.RunMode.RUN_USING_ENCODER));
+                nectar_launcher.getPIDFCoefficients(DcMotorEx.RunMode.RUN_USING_ENCODER));
 
         telemetry.update();
     }
@@ -110,7 +110,7 @@ public class PIDLauncherTest extends OpMode {
             return;
         }
 
-        pollen_launcher.setVelocityPIDFCoefficients(launcherP, launcherI, launcherD, launcherF);
+        nectar_launcher.setVelocityPIDFCoefficients(launcherP, launcherI, launcherD, launcherF);
         appliedP = launcherP;
         appliedI = launcherI;
         appliedD = launcherD;
