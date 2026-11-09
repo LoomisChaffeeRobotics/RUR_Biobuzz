@@ -125,7 +125,7 @@ public class RedScrimmageFirstTipAuto extends OpMode {
     Command runIntake = instant(() -> intake.toggleIntake(true));
     Command stopIntake = instant(() -> intake.toggleIntake(false));
 
-    Command waitForHive = waitUntil(() -> cameraClass.getDistanceFromAprilTag(cameraClass.red_audience_list) > 100); // change to hive distance when up +- some error
+    Command waitForHive = waitUntil(() -> cameraClass.getDistanceFromAprilTag(cameraClass.red_audience_list) > 50); // change to hive distance when up +- some error
 
     Command stopAll = parallel(
             stopIntake,
