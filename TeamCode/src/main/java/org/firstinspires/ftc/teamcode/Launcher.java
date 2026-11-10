@@ -153,8 +153,8 @@ public class Launcher {
             pollen_servo.setPower(-1);
         }
         else  {
-//            nectar_launcher.setVelocity(toggle ? -result[0] : 0);
-//            nectar_servo.setPower(-1);
+            nectar_launcher.setVelocity(toggle ? -result[0] : 0);
+            nectar_servo.setPower(-1);
         }
         lastVelocity = toggle ? -result[0] : 0;
 
@@ -170,7 +170,7 @@ public class Launcher {
         // N/A
 
         if(isLauncherPowered(1, RPMList[0], epsilon) || isLauncherPowered(2, RPMList[1], epsilon)) {
-            turret_feeder.setVelocity(toggle ? 1 : 0);
+            turret_feeder.setVelocity(toggle ? .567 : 0);
         } else {
             turret_feeder.setVelocity(0);
         }

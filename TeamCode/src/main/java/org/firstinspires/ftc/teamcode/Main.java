@@ -32,6 +32,10 @@ public class Main extends OpMode {
         // make so that: pressing A key -> toggleIntake,
         // with correct parameters passed in
 
+
+        drive = new Drive();
+        drive.init(hardwareMap);
+
         intake = new Intake();
         intake.init(hardwareMap);
 
@@ -52,7 +56,7 @@ public class Main extends OpMode {
 
         double projection_distance = Math.sqrt( (camera.getDistanceFromAprilTag(camera.red_cluster_list) * camera.getDistanceFromAprilTag(camera.red_cluster_list) ) - (camera.height_from_apriltag * camera.height_from_apriltag) );
 
-        if (gamepad1.a) {
+        if (gamepad1.left_bumper) {
 //            launcherClass.toggleLauncher(1,
 //                launcherClass.interpolateLauncherPowerFromTable(1,
 //                        launcherClass.pollen_distance_list,
