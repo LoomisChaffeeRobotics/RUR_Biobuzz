@@ -85,7 +85,7 @@ public class RedScrimmageSecondTipAuto extends OpMode {
             launcher.globalDelta
     );
 
-    double RPM = turretPower[0];
+    double[] RPM = launcher.targetRPMList;
     Command spinupwheel = Command.build()
             .setExecute(() -> {
                 launcher.toggleLauncher(
@@ -95,7 +95,7 @@ public class RedScrimmageSecondTipAuto extends OpMode {
             })
 
             .setDone(() -> {
-                return(launcher.isLauncherPowered(1, RPM, launcher.globalEpsilon));
+                return(launcher.isLauncherPowered(1, RPM[0], launcher.globalEpsilon));
             });
 
     Command shoot = sequential(

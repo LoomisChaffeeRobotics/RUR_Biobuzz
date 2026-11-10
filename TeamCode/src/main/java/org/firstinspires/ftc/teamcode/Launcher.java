@@ -36,7 +36,7 @@ public class Launcher {
 
 
     public PIDFCoefficients pollenLauncherPIDF = new PIDFCoefficients(pollenP, pollenI, pollenD, pollenF);
-    public PIDFCoefficients nectarLauncherPIDF = new PIDFCoefficients(nectarP,nectarI,nectarD,nectarF);
+    public PIDFCoefficients nectarLauncherPIDF = new PIDFCoefficients(nectarP, nectarI, nectarD, nectarF);
     public double globalDelta = 2;
     public double globalEpsilon = 40;
 
@@ -53,7 +53,7 @@ public class Launcher {
         turret_feeder = hardwareMap.get(DcMotorEx.class, "turret_feeder");
 
         nectar_launcher.setVelocityPIDFCoefficients(nectarP, nectarI, nectarD, nectarF);
-        pollen_launcher.setVelocityPIDFCoefficients(pollenP, pollenI,pollenD, pollenF);
+        pollen_launcher.setVelocityPIDFCoefficients(pollenP, pollenI, pollenD, pollenF);
     }
 
     int[] getBoundingIndexes(double[] list, double targetValue) {
