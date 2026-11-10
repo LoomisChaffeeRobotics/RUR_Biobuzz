@@ -102,7 +102,6 @@ public class RedScrimmageFirstTipAuto extends OpMode {
         52,
         launcherClass.globalDelta);
 
-    private double pollenTargetRPM = pollenTurretPower[0];
 
 
     //Commands
@@ -111,13 +110,13 @@ public class RedScrimmageFirstTipAuto extends OpMode {
                 launcherClass.toggleLauncher(1, pollenTurretPower, launcherClass.globalEpsilon, true);
             })
             .setDone(() -> {
-                return(launcherClass.isLauncherPowered(1, pollenTargetRPM, launcherClass.globalEpsilon));
+                return(launcherClass.isLauncherPowered(1, launcherClass.targetRPMList[0], launcherClass.globalEpsilon));
             });
 
     Command shootPollen = sequential(
-            instant(() -> launcherClass.feedLauncher(pollenTargetRPM, launcherClass.globalEpsilon, true)),
+            instant(() -> launcherClass.feedLauncher(launcherClass.targetRPMList, launcherClass.globalEpsilon, true)),
             Commands.waitMs(1000),
-            instant(() -> launcherClass.feedLauncher(pollenTargetRPM, launcherClass.globalEpsilon, false))
+            instant(() -> launcherClass.feedLauncher(launcherClass.targetRPMList, launcherClass.globalEpsilon, false))
     );
 
     Command stopPollen = instant(() -> launcherClass.toggleLauncher(1, pollenTurretPower, launcherClass.globalEpsilon, false));
@@ -130,7 +129,7 @@ public class RedScrimmageFirstTipAuto extends OpMode {
     Command stopAll = parallel(
             stopIntake,
             stopPollen,
-            instant(() -> launcherClass.feedLauncher(pollenTargetRPM, launcherClass.globalEpsilon, false))
+            instant(() -> launcherClass.feedLauncher(launcherClass.targetRPMList, launcherClass.globalEpsilon, false))
     );
 
 
