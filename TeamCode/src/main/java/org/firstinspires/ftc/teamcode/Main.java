@@ -106,15 +106,8 @@ public class Main extends OpMode {
         }
 
         //feeder for turrets
-        if (gamepad2.y) {
+        launcherClass.feedLauncher(launcherClass.targetRPMList, launcherClass.globalEpsilon, gamepad2.y);
 
-            launcherClass.feedLauncher(launcherClass.targetRPMList, launcherClass.globalEpsilon, true);
-
-        } else {
-
-            launcherClass.feedLauncher(launcherClass.targetRPMList, launcherClass.globalEpsilon, false);
-
-        }
 
 
     }

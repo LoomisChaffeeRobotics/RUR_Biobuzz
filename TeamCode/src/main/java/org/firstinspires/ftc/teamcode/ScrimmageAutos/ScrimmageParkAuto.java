@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.ScrimmageAutos;
 import com.pedropathing.api.Paths;
 import com.pedropathing.ivy.Command;
 import com.pedropathing.ivy.Scheduler;
-import com.pedropathing.paths.interpolator.Interpolator;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.pedropathing.follower.Follower;
@@ -32,7 +31,7 @@ import static com.pedropathing.ivy.pedro.PedroCommands.follow;
 // No difference by alliance
 
 @Autonomous
-public class RedScrimmageParkAuto extends OpMode {
+public class ScrimmageParkAuto extends OpMode {
 
     private Follower follower;
     private final PoseFactory poseFactory = PoseFactory.degrees();
