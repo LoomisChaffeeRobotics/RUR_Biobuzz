@@ -131,7 +131,7 @@ public class Launcher {
 
         double launcherVelocity = launcherID == 1 ? pollen_launcher.getVelocity() : nectar_launcher.getVelocity();
 
-        double rpm = launcherVelocity / 6.0;
+        double rpm = launcherVelocity;
 
         return Math.abs(rpm - targetRPM) <= epsilon;
     }
@@ -149,11 +149,11 @@ public class Launcher {
         // N/A
 
         if (launcherID == 1) {
-            pollen_launcher.setVelocity(toggle ? -result[0] : 0);
+            pollen_launcher.setVelocity(toggle ? result[0] : 0);
             pollen_servo.setPower(-1);
         }
         else  {
-            nectar_launcher.setVelocity(toggle ? -result[0] : 0);
+            nectar_launcher.setVelocity(toggle ? result[0] : 0);
             nectar_servo.setPower(1);
         }
         lastVelocity = toggle ? -result[0] : 0;
