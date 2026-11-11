@@ -154,7 +154,7 @@ public class Launcher {
         }
         else  {
             nectar_launcher.setVelocity(toggle ? -result[0] : 0);
-            nectar_servo.setPower(-1);
+            nectar_servo.setPower(1);
         }
         lastVelocity = toggle ? -result[0] : 0;
 
