@@ -150,11 +150,11 @@ public class Launcher {
 
         if (launcherID == 1) {
             pollen_launcher.setVelocity(toggle ? result[0] : 0);
-            pollen_servo.setPower(-1);
+            pollen_servo.setPower(toggle ? -1 : 0);
         }
         else  {
             nectar_launcher.setVelocity(toggle ? result[0] : 0);
-            nectar_servo.setPower(1);
+            nectar_servo.setPower(toggle ? 1 : 0);
         }
         lastVelocity = toggle ? -result[0] : 0;
 
