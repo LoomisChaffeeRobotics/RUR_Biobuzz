@@ -170,9 +170,9 @@ public class Launcher {
         // N/A
 
         if(isLauncherPowered(1, RPMList[0], epsilon) || isLauncherPowered(2, RPMList[1], epsilon)) {
-            turret_feeder.setVelocity(toggle ? .567 : 0);
+            turret_feeder.setPower(toggle ? .567 : 0);
         } else {
-            turret_feeder.setVelocity(0);
+            turret_feeder.setPower(0);
         }
 
     }
