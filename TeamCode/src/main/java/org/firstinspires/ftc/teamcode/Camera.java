@@ -37,7 +37,7 @@ public class Camera {
     public int[] blue_audience_list = {38, 39, 40, 41};
     public int[] blue_back_list = {42, 43, 44, 45};
 
-    public int loopsSinceCheck;
+    public int loopsSinceCheck = 0;
     //0 = Looking for april tags this loop
 
     public double[] lastPos = new double[] {0, 0, 0};
