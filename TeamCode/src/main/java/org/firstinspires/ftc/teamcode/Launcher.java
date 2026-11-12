@@ -34,6 +34,8 @@ public class Launcher {
     public double nectarD = 21;
     public double nectarF = -3.1;
 
+    public static double feederPower = 0.567;
+
 
     public PIDFCoefficients pollenLauncherPIDF = new PIDFCoefficients(pollenP, pollenI, pollenD, pollenF);
     public PIDFCoefficients nectarLauncherPIDF = new PIDFCoefficients(nectarP, nectarI, nectarD, nectarF);
@@ -170,7 +172,7 @@ public class Launcher {
         // N/A
 
         if(isLauncherPowered(1, RPMList[0], epsilon) || isLauncherPowered(2, RPMList[1], epsilon)) {
-            turret_feeder.setPower(toggle ? .567 : 0);
+            turret_feeder.setPower(toggle ? Launcher.feederPower : 0);
         } else {
             turret_feeder.setPower(0);
         }
