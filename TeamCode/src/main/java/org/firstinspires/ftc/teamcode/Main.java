@@ -110,6 +110,13 @@ public class Main extends OpMode {
             drive.turnToHive((isRed ? 1 : 0), odometry.getRobotAngle());
         }
 
+        if (gamepad2.right_bumper) {
+            launcherClass.feederPower += 0.001;
+        }
+        else if (gamepad2.left_bumper) {
+            launcherClass.feederPower -= 0.001;
+        }
+
         //feeder for turrets
         launcherClass.feedLauncher(launcherClass.targetRPMList, launcherClass.globalEpsilon, gamepad2.y);
 
