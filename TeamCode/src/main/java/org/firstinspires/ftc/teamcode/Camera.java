@@ -37,6 +37,9 @@ public class Camera {
     public int[] blue_audience_list = {38, 39, 40, 41};
     public int[] blue_back_list = {42, 43, 44, 45};
 
+    public int loopsSinceCheck;
+    //0 = Looking for april tags this loop
+
     public double[] lastPos = new double[] {0, 0, 0};
 
     public void init(HardwareMap hardwareMap, double[] odometryParameters) {
@@ -69,19 +72,24 @@ public class Camera {
     }
 
     public double[] getAprilTagPosition(int[] cluster_list) {
-        LLResult result = limelight.getLatestResult();
-        if (result == null || !result.isValid()) return new double[]{0, 0, 0};
 
-        for (LLResultTypes.FiducialResult fr : result.getFiducialResults()) {
+        if(loopsSinceCheck == 0){
+            //only runs every couple of loops
 
-            for (int id : cluster_list) {
+            LLResult result = limelight.getLatestResult();
+            if (result == null || !result.isValid()) return new double[]{0, 0, 0};
 
-                if (fr.getFiducialId() == id) {
-                    // is it relative to robot or for the entire space??????
-                    Position p = fr.getTargetPoseCameraSpace().getPosition().toUnit(DistanceUnit.INCH);
-                    return new double[]{p.x, p.y, p.z};
+            for (LLResultTypes.FiducialResult fr : result.getFiducialResults()) {
+
+                for (int id : cluster_list) {
+
+                    if (fr.getFiducialId() == id) {
+                        // is it relative to robot or for the entire space??????
+                        Position p = fr.getTargetPoseCameraSpace().getPosition().toUnit(DistanceUnit.INCH);
+                        return new double[]{p.x, p.y, p.z};
+                    }
+
                 }
-
             }
         }
         return new double[]{0, 0, 0};

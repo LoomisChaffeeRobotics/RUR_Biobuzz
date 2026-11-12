@@ -52,6 +52,9 @@ public class Main extends OpMode {
     @Override
     public void loop() {
 
+        camera.loopsSinceCheck = (camera.loopsSinceCheck + 1) % 10;
+        //only checks limelight every 10 loops
+
         //make sure to differentiate by color/team!!!!!!
 
         double projection_distance = Math.sqrt( (camera.getDistanceFromAprilTag(camera.red_cluster_list) * camera.getDistanceFromAprilTag(camera.red_cluster_list) ) - (camera.height_from_apriltag * camera.height_from_apriltag) );
