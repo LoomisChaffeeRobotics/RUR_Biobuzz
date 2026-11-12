@@ -24,6 +24,8 @@ public class Main extends OpMode {
     boolean b2Pressed = false;
     boolean x2Pressed = false;
 
+    boolean isRed = true;
+
     @Override
     public void init() {
         // in init(),
@@ -57,7 +59,7 @@ public class Main extends OpMode {
 
         //make sure to differentiate by color/team!!!!!!
 
-        double projection_distance = Math.sqrt( (camera.getDistanceFromAprilTag(camera.red_cluster_list) * camera.getDistanceFromAprilTag(camera.red_cluster_list) ) - (camera.height_from_apriltag * camera.height_from_apriltag) );
+        double projection_distance = Math.sqrt((camera.getDistanceFromAprilTag((isRed ? camera.red_cluster_list : camera.blue_cluster_list)) * camera.getDistanceFromAprilTag((isRed ? camera.red_cluster_list : camera.blue_cluster_list)) ) - (camera.height_from_apriltag * camera.height_from_apriltag));
 
         if (gamepad1.left_bumper) {
 //            launcherClass.toggleLauncher(1,
@@ -111,7 +113,17 @@ public class Main extends OpMode {
         //feeder for turrets
         launcherClass.feedLauncher(launcherClass.targetRPMList, launcherClass.globalEpsilon, gamepad2.y);
 
+        //selecting team
+        if (gamepad2.dpadUpWasPressed()){
+            isRed = true;
+        } else if (gamepad2.dpadDownWasPressed()){
+            isRed = false;
+        }
 
+
+
+        telemetry.addData("Team: ", (isRed ? "Red" : "Blue"));
+        telemetry.update();
 
     }
     
