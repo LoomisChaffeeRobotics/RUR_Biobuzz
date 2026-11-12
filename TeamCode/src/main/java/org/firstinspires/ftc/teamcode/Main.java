@@ -107,7 +107,7 @@ public class Main extends OpMode {
             b2Pressed = !b2Pressed;
         }
         if (gamepad2.x) {
-            drive.turnToHive(1, odometry.getRobotAngle());
+            drive.turnToHive((isRed ? 1 : 0), odometry.getRobotAngle());
         }
 
         //feeder for turrets
