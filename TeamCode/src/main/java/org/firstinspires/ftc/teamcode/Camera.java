@@ -94,6 +94,18 @@ public class Camera {
         }
         return new double[]{0, 0, 0};
     }
+
+    public double getAprilTagAngle(int[] cluster_list) {
+
+        double[] position = getAprilTagPosition(cluster_list);
+
+
+        // angle assumes y is up/down, x is left/right
+        double angle = Math.toDegrees(Math.atan2(-position[1], position[0]));
+
+        return angle;
+
+    }
 }
 
 

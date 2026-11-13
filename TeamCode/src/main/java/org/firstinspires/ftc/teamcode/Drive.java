@@ -74,15 +74,12 @@ public class Drive {
         // needs gamepad inputs from OpMode + imu rotation from Odometry class
     }
 
-    public void turnToHive(int colorID, double yaw) {
+    public double turnToHive(int colorID, double yaw) {
 
         int[] cluster_list = colorID == 1 ? cameraClass.red_cluster_list : cameraClass.blue_cluster_list;
 
-        double[] position = cameraClass.getAprilTagPosition(cluster_list);
-
-
         // angle assumes y is up/down, x is left/right
-        double angle = Math.toDegrees(Math.atan2(position[1], position[0])); // in radians!!!!
+        double angle = cameraClass.getAprilTagAngle(cluster_list) > 3 ? cameraClass.getAprilTagAngle(cluster_list) : 0;
 
         // MUST add +angle to get the target yaw
         // -- > targetYaw = yaw + angle;
@@ -90,9 +87,11 @@ public class Drive {
 
         // maybe replace with PIDF soon but im too lazy
         //decay is basically just making so that the smaller the angle, the smaller the motor power so that no overshoot
-        double decayConstant = Math.min(Math.abs(angle)/30, 1);
+        double decayConstant = Math.min(Math.abs(angle)/60, 1);
 
         driveUpdateFromGamepadInput(0, 0, decayConstant * Math.signum(angle), yaw);
+
+        return angle;
 
     }
 

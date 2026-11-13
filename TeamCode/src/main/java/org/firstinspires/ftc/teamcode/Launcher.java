@@ -34,7 +34,7 @@ public class Launcher {
     public double nectarD = 21;
     public double nectarF = -3.1;
 
-    public static double feederPower = 0.567;
+    public static double feederPower = 1;
 
 
     public PIDFCoefficients pollenLauncherPIDF = new PIDFCoefficients(pollenP, pollenI, pollenD, pollenF);

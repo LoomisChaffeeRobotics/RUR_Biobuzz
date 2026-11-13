@@ -50,12 +50,19 @@ public class Main extends OpMode {
 
     @Override
     public void loop() {
-
+        if (gamepad1.options) {
+            intake.intakeMotor.setPower(-1);
+            launcherClass.nectar_launcher.setPower(-1);
+            launcherClass.pollen_launcher.setPower(-1);
+            launcherClass.nectar_servo.setPower(-1);
+            launcherClass.pollen_servo.setPower(-1);
+            launcherClass.turret_feeder.setPower(-1);
+        }
         camera.loopsSinceCheck = (camera.loopsSinceCheck + 1) % 10;
         //only checks limelight every 10 loops
 
         //make sure to differentiate by color/team!!!!!!
-        if (gamepad1.start) {
+        if (gamepad1.startWasPressed()) {
             odometry.resetYaw();
         }
 
@@ -70,6 +77,7 @@ public class Main extends OpMode {
         //                launcherClass.globalEpsilon,
         //                a1Pressed);
         intake.toggleIntake(gamepad1.left_trigger_pressed);
+
 
         drive.driveUpdateFromGamepadInput((double) gamepad1.left_stick_x, (double) -gamepad1.left_stick_y, (double) gamepad1.right_stick_x, odometry.getRobotAngle());
 
@@ -104,9 +112,12 @@ public class Main extends OpMode {
             b1Pressed = !b1Pressed;
         }
         if (gamepad1.x) {
-            drive.turnToHive((isRed ? 1 : 0), odometry.getRobotAngle() - odometry.resetOffsetDegrees);
+
+            telemetry.addData("turning angle:", drive.turnToHive((isRed ? 1 : 0), odometry.getRobotAngle()));
         }
 
+        telemetry.addData("current camera change angle:", camera.getAprilTagAngle(isRed ? camera.red_cluster_list : camera.blue_cluster_list));
+        telemetry.addData("robot angle", odometry.getRobotAngle());
         if (gamepad1.right_bumper) {
             launcherClass.feederPower += 0.001;
         }
