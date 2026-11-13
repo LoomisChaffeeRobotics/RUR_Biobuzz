@@ -13,7 +13,7 @@ public class Odometry {
 
     GoBildaPinpointDriver pinpoint;
     //The odometry sensor is named "pinpoint".
-
+    public double resetOffsetDegrees = 0;
 
     public void init(HardwareMap hardwareMap, double[] odometryStartParameters) {
         double xStartInches = odometryStartParameters[0];
@@ -77,7 +77,7 @@ public class Odometry {
 
         // CLASS INTERACTIONS:
         // N/A
-        return pinpoint.getHeading(AngleUnit.DEGREES);
+        return pinpoint.getHeading(AngleUnit.DEGREES) - resetOffsetDegrees;
     }
 
     public double[] getRobotVelocity() {
@@ -92,5 +92,9 @@ public class Odometry {
         double yVel = pinpoint.getVelY(DistanceUnit.INCH);
         double headingVel = pinpoint.getHeadingVelocity(UnnormalizedAngleUnit.DEGREES);
         return new double[] {xVel, yVel, headingVel};
+    }
+    public void resetYaw() {
+        resetOffsetDegrees = pinpoint.getHeading(AngleUnit.DEGREES);
+
     }
 }

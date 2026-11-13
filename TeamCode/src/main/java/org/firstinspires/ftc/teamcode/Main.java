@@ -2,9 +2,6 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Gamepad;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 
 @TeleOp
 public class Main extends OpMode {
@@ -20,9 +17,9 @@ public class Main extends OpMode {
     double distanceToAprilTag = 0;
     int targetAprilTagID = 1;
 
-    boolean a2Pressed = false;
-    boolean b2Pressed = false;
-    boolean x2Pressed = false;
+    boolean a1Pressed = false;
+    boolean b1Pressed = false;
+    boolean x1Pressed = false;
 
     boolean isRed = true;
 
@@ -58,24 +55,24 @@ public class Main extends OpMode {
         //only checks limelight every 10 loops
 
         //make sure to differentiate by color/team!!!!!!
+        if (gamepad1.start) {
+            odometry.resetYaw();
+        }
 
         double projection_distance = Math.sqrt((camera.getDistanceFromAprilTag((isRed ? camera.red_cluster_list : camera.blue_cluster_list)) * camera.getDistanceFromAprilTag((isRed ? camera.red_cluster_list : camera.blue_cluster_list)) ) - (camera.height_from_apriltag * camera.height_from_apriltag));
 
-        if (gamepad1.left_bumper) {
-//            launcherClass.toggleLauncher(1,
-//                launcherClass.interpolateLauncherPowerFromTable(1,
-//                        launcherClass.pollen_distance_list,
-//                        launcherClass.pollen_power_list,
-//                        projection_distance,
-//                        launcherClass.globalDelta),
-//                launcherClass.globalEpsilon,
-//                a2Pressed);
-            intake.toggleIntake(true);
-        } else {
-            intake.toggleIntake(false);
-        }
+        //            launcherClass.toggleLauncher(1,
+        //                launcherClass.interpolateLauncherPowerFromTable(1,
+        //                        launcherClass.pollen_distance_list,
+        //                        launcherClass.pollen_power_list,
+        //                        projection_distance,
+        //                        launcherClass.globalDelta),
+        //                launcherClass.globalEpsilon,
+        //                a1Pressed);
+        intake.toggleIntake(gamepad1.left_trigger_pressed);
 
         drive.driveUpdateFromGamepadInput((double) gamepad1.left_stick_x, (double) -gamepad1.left_stick_y, (double) gamepad1.right_stick_x, odometry.getRobotAngle());
+
 
 
         //launcher handling
@@ -88,7 +85,7 @@ public class Main extends OpMode {
                         projection_distance,
                         launcherClass.globalDelta),
                 launcherClass.globalEpsilon,
-                a2Pressed);
+                a1Pressed);
 
         //nectar launcher
         launcherClass.toggleLauncher(2,
@@ -98,38 +95,39 @@ public class Main extends OpMode {
                         projection_distance,
                         launcherClass.globalDelta),
                 launcherClass.globalEpsilon,
-                b2Pressed);
+                b1Pressed);
 
-        if (gamepad2.aWasPressed()) {
-            a2Pressed = !a2Pressed;
+        if (gamepad1.aWasPressed()) {
+            a1Pressed = !a1Pressed;
         }
-        if (gamepad2.bWasPressed()) {
-            b2Pressed = !b2Pressed;
+        if (gamepad1.bWasPressed()) {
+            b1Pressed = !b1Pressed;
         }
-        if (gamepad2.x) {
-            drive.turnToHive((isRed ? 1 : 0), odometry.getRobotAngle());
+        if (gamepad1.x) {
+            drive.turnToHive((isRed ? 1 : 0), odometry.getRobotAngle() - odometry.resetOffsetDegrees);
         }
 
-        if (gamepad2.right_bumper) {
+        if (gamepad1.right_bumper) {
             launcherClass.feederPower += 0.001;
         }
-        else if (gamepad2.left_bumper) {
+        else if (gamepad1.left_bumper) {
             launcherClass.feederPower -= 0.001;
         }
 
         //feeder for turrets
-        launcherClass.feedLauncher(launcherClass.targetRPMList, launcherClass.globalEpsilon, gamepad2.y);
+        launcherClass.feedLauncher(launcherClass.targetRPMList, launcherClass.globalEpsilon, gamepad1.y);
 
         //selecting team
-        if (gamepad2.dpadUpWasPressed()){
+        if (gamepad1.dpadUpWasPressed()){
             isRed = true;
-        } else if (gamepad2.dpadDownWasPressed()){
+        } else if (gamepad1.dpadDownWasPressed()){
             isRed = false;
         }
 
 
 
         telemetry.addData("Team: ", (isRed ? "Red" : "Blue"));
+        telemetry.addData("Feeder Power: ", launcherClass.feederPower);
         telemetry.update();
 
     }
