@@ -135,7 +135,7 @@ public class Launcher {
 
         double rpm = launcherVelocity;
 
-        return Math.abs(rpm - targetRPM) <= epsilon;
+        return Math.abs(rpm - targetRPM - 75) <= epsilon;
     }
 
     public void toggleLauncher(int launcherID, double[] result, double epsilon, boolean toggle) {
@@ -151,14 +151,14 @@ public class Launcher {
         // N/A
 
         if (launcherID == 1) {
-            pollen_launcher.setVelocity(toggle ? result[0] : 0);
+            pollen_launcher.setVelocity(toggle ? result[0] + 75 : 0);
             pollen_servo.setPower(toggle ? -1 : 0);
         }
         else  {
-            nectar_launcher.setVelocity(toggle ? result[0] : 0);
+            nectar_launcher.setVelocity(toggle ? result[0] + 75 : 0);
             nectar_servo.setPower(toggle ? 1 : 0);
         }
-        lastVelocity = toggle ? -result[0] : 0;
+        lastVelocity = toggle ? -(result[0] + 75) : 0;
 
     }
 
