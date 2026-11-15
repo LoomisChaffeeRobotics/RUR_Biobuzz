@@ -50,7 +50,7 @@ public class Main extends OpMode {
 
     @Override
     public void loop() {
-        if (gamepad1.options) {
+        if (gamepad1.left_trigger_pressed) {
             intake.intakeMotor.setPower(-1);
             launcherClass.nectar_launcher.setPower(-1);
             launcherClass.pollen_launcher.setPower(-1);
@@ -76,7 +76,7 @@ public class Main extends OpMode {
         //                        launcherClass.globalDelta),
         //                launcherClass.globalEpsilon,
         //                a1Pressed);
-        intake.toggleIntake(gamepad1.left_trigger_pressed);
+        intake.toggleIntake(gamepad1.right_trigger_pressed);
 
 
         drive.driveUpdateFromGamepadInput((double) gamepad1.left_stick_x, (double) -gamepad1.left_stick_y, (double) gamepad1.right_stick_x, odometry.getRobotAngle());
