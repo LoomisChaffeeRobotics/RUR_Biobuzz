@@ -101,7 +101,7 @@ public class Camera {
 
 
         // angle assumes y is up/down, x is left/right
-        double angle = Math.toDegrees(Math.atan2(-position[1], position[0]));
+        double angle = Math.toDegrees(Math.atan2(position[0], -position[1]));
 
         return angle;
 
