@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.CRServo;
@@ -14,11 +14,11 @@ public class Launcher {
     //Class calculates the target speed of turret and sets turret to correct power.
 
     HardwareMap hardwareMap;
-    DcMotorEx pollen_launcher;
-    DcMotorEx nectar_launcher;
-    DcMotorEx turret_feeder;
-    CRServo pollen_servo;
-    CRServo nectar_servo;
+    public DcMotorEx pollen_launcher;
+    public DcMotorEx nectar_launcher;
+    public DcMotorEx turret_feeder;
+    public CRServo pollen_servo;
+    public CRServo nectar_servo;
 
     public double[] pollen_distance_list = {30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70, 72, 74};
     public double[] nectar_distance_list = {30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70, 72, 74};

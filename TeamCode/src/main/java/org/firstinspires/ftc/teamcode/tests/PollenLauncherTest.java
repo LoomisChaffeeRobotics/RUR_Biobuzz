@@ -1,10 +1,14 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.tests;
+
+import org.firstinspires.ftc.teamcode.subsystems.Drive;
+import org.firstinspires.ftc.teamcode.subsystems.Intake;
+import org.firstinspires.ftc.teamcode.subsystems.Launcher;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 @TeleOp
-public class NectarLauncherTest extends OpMode {
+public class PollenLauncherTest extends OpMode {
 
     Intake intake;
     Drive drive;
@@ -42,19 +46,19 @@ public class NectarLauncherTest extends OpMode {
         //launcher handling
         // pollen launcher
 
-        //nectar launcher
-        launcherClass.toggleLauncher(2,
-                launcherClass.interpolateLauncherPowerFromTable(2,
-                        launcherClass.nectar_distance_list,
-                        launcherClass.nectar_power_list,
+        //pollen launcher
+        launcherClass.toggleLauncher(1,
+                launcherClass.interpolateLauncherPowerFromTable(1,
+                        launcherClass.pollen_distance_list,
+                        launcherClass.pollen_power_list,
                         distance,
                         launcherClass.globalDelta),
                 launcherClass.globalEpsilon,
                 b1Pressed);
 
-        result = launcherClass.interpolateLauncherPowerFromTable(2,
-                launcherClass.nectar_distance_list,
-                launcherClass.nectar_power_list,
+        result = launcherClass.interpolateLauncherPowerFromTable(1,
+                launcherClass.pollen_distance_list,
+                launcherClass.pollen_power_list,
                 distance,
                 launcherClass.globalDelta);
 
@@ -70,7 +74,7 @@ public class NectarLauncherTest extends OpMode {
         }
 
         telemetry.addData("targetVelocity", result[0]);
-//        telemetry.addData("realvelocity", launcherClass.nectar_launcher.getVelocity());
+        telemetry.addData("realvelocity", launcherClass.pollen_launcher.getVelocity());
         telemetry.addData("distance", distance);
         telemetry.addData("power_1", result[1]);
         telemetry.addData("power_2", result[2]);

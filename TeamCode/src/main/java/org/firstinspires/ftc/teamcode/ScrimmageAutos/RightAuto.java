@@ -3,8 +3,8 @@ package org.firstinspires.ftc.teamcode.ScrimmageAutos;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
-import org.firstinspires.ftc.teamcode.Drive;
-import org.firstinspires.ftc.teamcode.Odometry;
+import org.firstinspires.ftc.teamcode.subsystems.Drive;
+import org.firstinspires.ftc.teamcode.subsystems.Odometry;
 
 @Autonomous
 public class RightAuto extends OpMode {

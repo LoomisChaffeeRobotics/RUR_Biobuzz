@@ -1,4 +1,6 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.tests;
+
+import org.firstinspires.ftc.teamcode.subsystems.Camera;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
