@@ -19,7 +19,7 @@ public class Main extends OpMode {
     Launcher launcherClass;
     Camera camera;
     Odometry odometry;
-    IndicatorLight light;
+    //IndicatorLight light;
 
     public double[] odometryConstants = {0, 0, 0};
     double distanceToAprilTag = 0;
@@ -55,8 +55,8 @@ public class Main extends OpMode {
         odometry = new Odometry();
         odometry.init(hardwareMap, odometryConstants);
 
-        light = new IndicatorLight();
-        light.init(hardwareMap);
+        //light = new IndicatorLight();
+        //light.init(hardwareMap);
     }
 
     @Override
@@ -148,13 +148,13 @@ public class Main extends OpMode {
 
 
         //indicator light
-        if (launcherClass.isLauncherPowered(1, launcherClass.targetRPMList[0], launcherClass.globalEpsilon)){
-            light.setColor(IndicatorLight.Color.YELLOW);
-        } else if (launcherClass.isLauncherPowered(2, launcherClass.targetRPMList[1], launcherClass.globalEpsilon)){
-            light.setColor(isRed ? IndicatorLight.Color.RED : IndicatorLight.Color.BLUE);
-        } else {
-            light.setColor(IndicatorLight.Color.OFF);
-        }
+//        if (launcherClass.isLauncherPowered(1, launcherClass.targetRPMList[0], launcherClass.globalEpsilon)){
+//            light.setColor(IndicatorLight.Color.YELLOW);
+//        } else if (launcherClass.isLauncherPowered(2, launcherClass.targetRPMList[1], launcherClass.globalEpsilon)){
+//            light.setColor(isRed ? IndicatorLight.Color.RED : IndicatorLight.Color.BLUE);
+//        } else {
+//            light.setColor(IndicatorLight.Color.OFF);
+//        }
 
 
         telemetry.addData("Feeder Power: ", launcherClass.feederPower);
