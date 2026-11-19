@@ -8,22 +8,19 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 /**
  * Pollen-only experiment; call update() once per OpMode loop.
- * PVS formula follows BeepBot99/CodeBloodedDecodeV2, subsystems/Flywheel.java:
- * https://github.com/BeepBot99/CodeBloodedDecodeV2/blob/master/src/main/java/org/firstinspires/ftc/teamcode/subsystems/Flywheel.java
  * Gains here use RPM, while that implementation uses encoder ticks/second.
  */
 @Config
 public class pollenPVSTest {
     // Initial estimates converted from the reference's tick-based gains at 28 ticks/rev.
     // Tune on this robot; these are not the existing Launcher's hub PIDF gains.
-    public static double kP = 0.01 * 28.0 / 60.0;
-    public static double kV = 0.000365 * 28.0 / 60.0;
+    // ticks/second = RPM * this factor (28 encoder ticks/rev, direct drive).
+    public static double ticksPerSecondPerRPM = 28.0 / 60.0;
+    public static double kP = 0.01 * ticksPerSecondPerRPM;
+    public static double kV = 0.000365 * ticksPerSecondPerRPM;
     public static double kS = 0.065;
-    // Encoder ticks per revolution of the shaft whose RPM is being controlled.
-    // Assumes the existing Launcher's 28-tick comment and direct drive; verify gearing.
-    public static double ticksPerRevolution = 28;
     public static double bangBangThresholdRPM = 100;
-    public static double readyToleranceRPM = 40 * 60.0 / 28.0;
+    public static double readyToleranceRPM = 40 / ticksPerSecondPerRPM;
     public static double velocityOffsetTicksPerSecond = 75;
     public static double feederPower = 1;
 
@@ -102,8 +99,8 @@ public class pollenPVSTest {
     }
 
     public static double ticksPerSecondToRPM(double ticksPerSecond) {
-        if (!Double.isFinite(ticksPerRevolution) || ticksPerRevolution <= 0) return Double.NaN;
-        return ticksPerSecond * 60.0 / ticksPerRevolution;
+        if (!Double.isFinite(ticksPerSecondPerRPM) || ticksPerSecondPerRPM <= 0) return Double.NaN;
+        return ticksPerSecond / ticksPerSecondPerRPM;
     }
 
     public void update() {

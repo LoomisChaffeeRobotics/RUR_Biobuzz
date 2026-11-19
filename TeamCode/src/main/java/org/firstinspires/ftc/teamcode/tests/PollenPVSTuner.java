@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.subsystems.pollenPVSTest;
 
 /**
- * Dashboard: tune kP/kV/kS, ticksPerRevolution, threshold and tolerance under
+ * Dashboard: tune kP/kV/kS, ticksPerSecondPerRPM, threshold and tolerance under
  * pollenPVSTest. Target controls below are live under PollenPVSTuner.
  * Begin with kP=0 and kS=0, tune kV to hold speed, then kS and a small kP.
  * Bang-bang may cycle until feedforward holds speed inside the 100 RPM band.
@@ -66,7 +66,7 @@ public class PollenPVSTuner extends OpMode {
         telemetry.addData("kV", pollenPVSTest.kV);
         telemetry.addData("kS", pollenPVSTest.kS);
         telemetry.addData("Switch threshold RPM", pollenPVSTest.bangBangThresholdRPM);
-        telemetry.addData("Ticks per revolution", pollenPVSTest.ticksPerRevolution);
+        telemetry.addData("Ticks/sec per RPM", pollenPVSTest.ticksPerSecondPerRPM);
         telemetry.update();
     }
 
