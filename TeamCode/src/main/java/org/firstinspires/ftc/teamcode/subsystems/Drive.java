@@ -74,7 +74,7 @@ public class Drive {
         // needs gamepad inputs from OpMode + imu rotation from Odometry class
     }
 
-    public double turnToHive(int colorID, double yaw) {
+    public double turnToHive(int colorID) {
 
         int[] cluster_list = colorID == 1 ? cameraClass.red_cluster_list : cameraClass.blue_cluster_list;
 
@@ -89,9 +89,8 @@ public class Drive {
         //decay is basically just making so that the smaller the angle, the smaller the motor power so that no overshoot
         double decayConstant = Math.min(Math.abs(angle)/60, 1);
 
-        driveUpdateFromGamepadInput(0, 0, decayConstant * Math.signum(angle), yaw);
 
-        return angle;
+        return decayConstant * Math.signum(angle);
 
     }
 

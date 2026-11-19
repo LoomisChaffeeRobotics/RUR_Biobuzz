@@ -90,7 +90,11 @@ public class Main extends OpMode {
         intake.toggleIntake(gamepad1.right_trigger_pressed || gamepad2.right_trigger_pressed);
 
 
-        drive.driveUpdateFromGamepadInput((double) gamepad1.left_stick_x, (double) -gamepad1.left_stick_y, (double) gamepad1.right_stick_x, odometry.getRobotAngle());
+        drive.driveUpdateFromGamepadInput(
+                (double) gamepad1.left_stick_x,
+                (double) -gamepad1.left_stick_y,
+                (gamepad1.x ? drive.turnToHive(isRed ? 1 : 0) : (double) gamepad1.right_stick_x),
+                odometry.getRobotAngle());
 
 
 
@@ -122,10 +126,7 @@ public class Main extends OpMode {
         if (gamepad2.bWasPressed()) {
             b2Pressed = !b2Pressed;
         }
-        if (gamepad1.x) {
-            telemetry.addData("turning angle:", drive.turnToHive((isRed ? 1 : 0), odometry.getRobotAngle()));
 
-        }
 
         telemetry.addData("current camera change angle:", camera.getAprilTagAngle(isRed ? camera.red_cluster_list : camera.blue_cluster_list));
         telemetry.addData("robot angle", odometry.getRobotAngle());
