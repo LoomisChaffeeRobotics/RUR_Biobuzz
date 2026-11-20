@@ -159,14 +159,15 @@ public class Main extends OpMode {
 
 
         telemetry.addData("Feeder Power: ", launcherClass.feederPower);
+        telemetry.addData("Decay * Camera Angle", drive.turnToHive(isRed ? 1 : 0));
 
 
-        telemetry.addLine();
         telemetry.addLine("Drive Coach Information:");
 
         telemetry.addData("Team: ", (isRed ? "Red" : "Blue"));
         telemetry.addData("Pollen Turret Up to Speed: ", launcherClass.isLauncherPowered(1, launcherClass.targetRPMList[0], launcherClass.globalEpsilon));
         telemetry.addData("Nectar Turret Up to Speed: ", launcherClass.isLauncherPowered(2, launcherClass.targetRPMList[1], launcherClass.globalEpsilon));
+
 
         telemetry.update();
 
