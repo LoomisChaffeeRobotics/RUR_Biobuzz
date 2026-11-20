@@ -167,10 +167,10 @@ public class Main extends OpMode {
         telemetry.addData("Team: ", (isRed ? "Red" : "Blue"));
         telemetry.addData("Pollen Turret Up to Speed: ", launcherClass.isLauncherPowered(1, launcherClass.targetRPMList[0], launcherClass.globalEpsilon));
         telemetry.addData("Nectar Turret Up to Speed: ", launcherClass.isLauncherPowered(2, launcherClass.targetRPMList[1], launcherClass.globalEpsilon));
+        telemetry.addData("Angle Offset: ", camera.getAprilTagAngle((isRed ? camera.red_cluster_list : camera.blue_cluster_list)));
 
         telemetry.update();
 
     }
-    
     
 }
