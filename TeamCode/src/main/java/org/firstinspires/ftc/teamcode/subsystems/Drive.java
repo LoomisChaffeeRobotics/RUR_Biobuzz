@@ -87,7 +87,7 @@ public class Drive {
 
         // maybe replace with PIDF soon but im too lazy
         //decay is basically just making so that the smaller the angle, the smaller the motor power so that no overshoot
-        double decayConstant = Math.min(Math.abs(angle > 180 ? 360 - angle : angle)/60, 1);
+        double decayConstant = Math.min(Math.abs(angle > 180 ? angle - 360 : angle)/60, 1);
 
 
         return decayConstant * Math.signum(angle);
